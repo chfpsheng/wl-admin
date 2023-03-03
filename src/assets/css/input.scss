@@ -1,0 +1,41 @@
+@import './themes.scss';
+// new styles
+.pa-input .el-input__inner {
+  height: 32px;
+  line-height: 1;
+  border-radius: 2px;
+  color: $font-color;
+  font-size: $font-size;
+  font-family: $font-family;
+}
+.pa-input .el-input__icon {
+  line-height: 32px;
+}
+.pa-input .el-textarea__inner {
+  border-radius: 2px;
+  color: $font-color;
+}
+.pa-input.el-input.is-active .el-input__inner, .pa-input .el-input__inner:focus {
+  border-color: $themes-bule-color;
+}
+.pa-input .el-textarea__inner:focus {
+  border-color: $themes-bule-color;
+}
+.pa-input .el-input__count {
+  bottom: 4px;
+  line-height: 14px;
+}
+.pa-input .el-textarea__inner {
+  padding-bottom: 20px;
+}
+.pa---input.el-textarea .el-input__count {
+  bottom: 1px;
+  padding: 4px;
+}
+.pa---input textarea {
+  font-family: 'Microsoft YaHei,PingFang SC';
+}
+.pa-input .el-textarea__inner {
+  padding-left: 12px!important;
+  padding-right: 12px!important;
+}

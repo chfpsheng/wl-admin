@@ -1,0 +1,225 @@
+.workbench-tabs {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.workbench-box {
+  width: 100%;
+  height: 100%;
+}
+.workbench-box .content-box {
+  width: 100%;
+  height: calc(100% - 76px);
+  overflow: auto;
+  padding: 0 24px;
+  position: relative;
+}
+.workbench-box .content-box .wran-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 0;
+}
+.workbench-box .content-box .wran-box .icon {
+  font-size: 14px;
+  color: #FFB828;
+  margin-top: 2px;
+  margin-right: 8px;
+}
+.workbench-box .content-box .wran-box .status {
+  color: #F26334;
+  margin-right: 14px;
+  line-height: 1;
+}
+.workbench-box .content-box .wran-box .des {
+  margin-right: 24px;
+}
+.follow-item-box {
+  width: 100%;
+  border: 1px solid #dfe4ed;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.follow-item-box .top-box {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dfe4ed;
+}
+.follow-item-box .top-box .left-box {
+  display: flex;
+  align-items: center;
+}
+.follow-item-box .top-box .left-box .name {
+  margin-right: 8px;
+}
+.follow-item-box .top-box .left-box .time {
+  margin-right: 16px;
+  font-size: 12px;
+}
+.follow-item-box .top-box .left-box .keeper {
+  color: #666;
+  font-size: 12px;
+}
+.follow-item-box .handle-icon {
+  color: #06c;
+  cursor: pointer;
+  margin-right: 18px;
+}
+.follow-item-box .handle-icon:last-child {
+  margin-right: 0;
+}
+.follow-item-box .bottom-box {
+  width: 100%;
+  padding: 16px 0;
+}
+.follow-item-box .list-box {
+  width: 100%;
+  display: flex;
+  margin-bottom: 8px;
+}
+.follow-item-box .list-box:last-child {
+  margin-bottom: 0;
+}
+.follow-item-box .list-box .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.follow-item-box .list-box {
+  font-size: 14px;
+}
+.follow-item-box .list-box-type1 .dot {
+  background-color: #999;
+}
+.follow-item-box .list-box-type1 .status {
+  color: #999;
+}
+.follow-item-box .list-box-type1 .test {
+  color: #666;
+}
+.follow-item-box .list-box-type2 .dot {
+  background-color: #06c;
+}
+.follow-item-box .list-box-type2 .status {
+  color: #06c;
+}
+.follow-item-box .list-box-type3 .dot {
+  background-color: #F26334;
+}
+.follow-item-box .list-box-type3 .status {
+  color: #F26334;
+}
+.follow-item-box .list-box-type3 .test {
+  color: #F26334;
+}
+.follow-item-box .list-box .status {
+  width: 72px;
+  display: flex;
+  align-items: flex-start;
+}
+.follow-item-box .list-box .test-box {
+  width: calc(100% - 72px);
+}
+.follow-item-box .handle-box {
+  display: flex;
+  justify-content: flex-start;
+}
+.follow-item-box .img-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.follow-item-box .img-box2 {
+  margin-right: 24px;
+}
+.follow-item-box .img-box .img-type {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.filter-boxs {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.filter-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.filter---multiline---wrapper .filter-item{
+  margin-right: 40px;
+  margin-bottom: 16px!important;
+}
+.filter---multiline---wrapper .el-button--primary {
+  margin-bottom: 16px!important;
+}
+.follow-plan-box {
+  width: 100%;
+  height: 100%;
+  padding: 0 24px 80px 24px;
+  overflow: auto;
+}
+.task-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.task-box:last-child {
+  margin-bottom: 0;
+}
+.task-box .left-box {
+  width: 100%;
+}
+.task-box .right-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8px;
+  color: #06c;
+}
+.el-collapse-title-icon {
+  margin-right: 4px
+}
+.el-collapse-title-num {
+  margin-left: 8px;
+  color: #06c;
+  // font-weight: bold;
+}
+.el-collapse-title-num3 {
+  color: #333;
+}
+.el-collapse-title-num2 {
+  color: #F26334;
+}
+.el-collapse-title-box {
+  display: flex;
+  align-items: center;
+}
+.filter-box {
+  margin: 0;
+}
+.add-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #06c;
+}
+.status-box {
+  display: flex;
+  align-items: center;
+}
+.follow-item-box .test-box {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

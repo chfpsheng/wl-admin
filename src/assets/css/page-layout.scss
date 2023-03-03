@@ -1,0 +1,100 @@
+$directions: (
+  "t": "top",
+  "r": "right",
+  "b": "bottom",
+  "l": "left"
+);
+
+@mixin margin($direction, $val) {
+  $dir: map-get($directions, $direction);
+
+  .m#{$direction}-#{$val} {
+    margin-#{$dir}: #{$val}px;
+  }
+}
+
+@mixin padding($direction, $val) {
+  $dir: map-get($directions, $direction);
+
+  .p#{$direction}-#{$val} {
+    padding-#{$dir}: #{$val}px;
+  }
+}
+
+@mixin width($val) {
+  .w-#{$val} {
+    width: #{$val}px;
+  }
+}
+
+/*
+ * margin
+ */
+@include margin(t, 8);
+@include margin(t, 10);
+@include margin(t, 16);
+@include margin(t, 24);
+@include margin(t, 32);
+@include margin(t, 48);
+@include margin(l, 16);
+@include margin(l, 24);
+@include margin(r, 4);
+@include margin(r, 8);
+@include margin(r, 16);
+@include margin(r, 24);
+@include margin(r, 32);
+
+/*
+ * padding
+ */
+.p-24 {
+  padding: 24px;
+}
+@include padding(t, 8);
+@include padding(t, 16);
+@include padding(b, 16);
+
+.page-content {
+  padding: 16px 24px 15px 24px;
+  background-color: #fff;
+}
+// 列表过滤项
+.page-filters {
+  padding: 16px 24px;
+  display: flex;
+
+  .filter-item {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    & + .filter-item {
+      color:#333;
+      margin-left: 40px;
+    }
+
+    > label {
+      font-weight: normal;
+      text-align: right;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-right: 8px;
+      color: #333;
+    }
+
+    > div {
+      flex: auto;
+      width: auto;
+    }
+  }
+
+  .search-handler {
+    margin-left: 40px;
+  }
+  .el-button + .el-button {
+    margin-left: 16px;
+  }
+}
+
+.text-right {
+  text-align: right;
+}

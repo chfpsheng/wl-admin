@@ -1,0 +1,187 @@
+.el-card__body {
+  padding: 0px !important;
+}
+.ly-tree-container {
+  // margin: 20px 0 20px 20px;
+  // width: 60%;
+  // width: 350px;
+  height: calc(100vh - 115px);
+  padding: 10px;
+  overflow: auto;
+  .el-tree {
+    display: inline-block;
+    min-width: 100%;
+    // overflow: scroll;
+  }
+  span {
+    font-size: 14px;
+  }
+
+  .el-tree > .el-tree-node > .el-tree-node__content:first-child {
+    &::before,
+    &::after {
+      border: none;
+    }
+  }
+
+  .ly-visible {
+    // margin-left: 50px;
+    visibility: hidden;
+  }
+
+  .ly-edit__text {
+    width: 25%;
+    height: 25px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    color: #666;
+    text-indent: 10px;
+  }
+
+  .ly-tree__loading {
+    color: #666;
+    font-weight: bold;
+  }
+
+  .ly-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    justify-content: flex-start;
+    font-size: 14px;
+    //padding-right: 8px;
+  }
+
+  .ly-tree-node > div > span:last-child {
+    display: inline-block;
+    //width: 110px;
+    text-align: right;
+  }
+
+  .ly-tree-node > span:last-child {
+    display: inline-block;
+    width: 110px;
+    text-align: left;
+  }
+  .el-tree-node.is-expanded {
+    // position: relative;
+    .el-tree-node__content {
+      position: static;
+    }
+  }
+  .el-tree-node:last-child {
+    > .el-tree-node__content::before {
+      height: 40px;
+    }
+  }
+
+  .el-tree-node .el-tree-node__content {
+    position: relative;
+    height: 40px;
+    &:hover .ly-visible {
+      visibility: visible;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      right: auto;
+      z-index: 11;
+    }
+
+    &::before {
+      border-left: 1px solid #ebebeb;
+      top: -4px;
+      height: 100%;
+      width: 0;
+      margin-left: -6px;
+      margin-top: -15px;
+    }
+
+    &::after {
+      border-top: 1px solid #ebebeb;
+      height: 0;
+      top: 20px;
+      width: 12px;
+      margin-left: -6px;
+    }
+  }
+
+  .el-tree .el-tree-node {
+    position: relative;
+  }
+
+  .el-tree .el-tree-node {
+    &:focus > .el-tree-node__content > .el-tree-node__expand-icon {
+      background-color: #f5f7fa;
+    }
+    .el-tree-node__content {
+      &:hover .el-tree-node__expand-icon {
+        background-color: #f5f7fa;
+      }
+      .el-tree-node__expand-icon {
+        position: relative;
+        z-index: 22;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #999;
+        &.is-leaf {
+          color: #999;
+        }
+      }
+      .iconfont {
+        transform: none;
+        &.is-leaf::before,
+        &.expanded::before {
+          content: "\e6bf";
+        }
+      }
+    }
+    &.is-current {
+      > .el-tree-node__content > .el-tree-node__expand-icon {
+        background-color: #ebf3fb;
+      }
+    }
+  }
+  // 树根节点
+  // .el-tree > .el-tree-node > .el-tree-node__content > .el-tree-node__expand-icon {
+  //   font-family: "element-icons" !important;
+  //   font-size: 16px;
+  //   padding: 2px;
+  //   margin: 0 2px;
+  //   &::before {
+  //     // content: "";
+  //     content: "\e6e0";
+  //   }
+  // &.expanded {
+  //   transform: rotate(90deg);
+  // }
+  // }
+  .el-tree .el-tree-node > .el-tree-node__children {
+    overflow: visible;
+  }
+  // .el-tree-node__expand-icon.is-leaf {
+  //   width: 10px;
+  // }
+
+  .icon-right {
+    //margin-right: 10px;
+  }
+  .icon-error {
+    color: #666;
+  }
+  .iconsize {
+    font-size: 18px;
+    color: #06c;
+  }
+}
+.ly-tree-container .ly-edit__text {
+  width: 60%;
+  height: 25px;
+  //border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  color: #666;
+  text-indent: 10px;
+}

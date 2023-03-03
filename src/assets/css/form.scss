@@ -1,0 +1,118 @@
+.form-input.el-input,
+.form-input.el-textarea {
+  width: 500px;
+}
+.form-long-select {
+  width: 500px;
+}
+.form-select {
+  width: 230px;
+}
+.form-tips {
+  margin-left: 8px;
+  color: #999;
+}
+.pa-date-picker .el-input__inner {
+  height: 32px;
+  line-height: 32px;
+}
+.el-form .el-form-item__label {
+  font-weight: normal;
+  color: #333;
+}
+.pa-ruleForm .el-form-item__label,
+.pa-ruleForm .el-form-item__content {
+  line-height: 32px;
+}
+.pa-ruleForm .el-form-item {
+  margin-bottom: 24px;
+}
+
+.pa-ruleForm .el-upload--picture-card {
+  width: 118px;
+  height: 118px;
+  line-height: 118px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.pa-ruleForm .el-upload--picture-card:hover {
+  border-color: #06c;
+  color: #06c;
+}
+
+.drawer-box .el-form .el-form-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  .el-form-item__label {
+    line-height: 16px;
+  }
+}
+.drawer-box .el-form .el-form-item__content {
+  width: 100%;
+}
+.drawer-box .el-form-item .el-form-item__label {
+  text-align: left;
+  //margin-left: 12px;
+}
+.drawer-box .el-form-item .el-textarea {
+  width: 100% !important;
+}
+.drawer-box .el-form-item {
+  position: relative;
+}
+.drawer-box .el-form-item__label::before {
+  position: absolute !important;
+  left: -12px !important;
+  top: 0 !important;
+  font-size: 16px !important;
+}
+.drawer-box .el-form-item__label {
+  line-height: 30px;
+}
+.drawer-box .el-form-item {
+  margin-bottom: 24px;
+}
+.drawer-box .el-form {
+  padding-top: 24px;
+}
+.pa-drawer .el-button + .el-button {
+  margin-left: 24px;
+}
+
+// TABLE行内表单
+.table-form {
+  .el-form-item {
+    margin-bottom: 0;
+  }
+
+  .el-form-item__error {
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    // margin-top: 2px;
+    padding: 0;
+    // border-radius: 2px;
+    // background-color: #fff;
+    // border: 1px solid #EF4F3C;
+  }
+
+  &.el-table {
+    // overflow: visible;
+
+    .el-table__body-wrapper {
+      // overflow: visible;
+      padding-bottom: 10px;
+    }
+
+    .cell:not(.el-tooltip) {
+      overflow: visible;
+    }
+
+    .el-table__empty-block {
+      display: none;
+    }
+  }
+}

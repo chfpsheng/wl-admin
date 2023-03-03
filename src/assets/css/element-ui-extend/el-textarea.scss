@@ -1,0 +1,13 @@
+.el-textarea.textarea {
+  border: 1px solid #ebebeb;
+  border-radius: 2px;
+  > .el-textarea__inner {
+    border: none;
+  }
+  > .el-input__count {
+    position: static;
+    display: block;
+    line-height: 16px;
+    text-align: right;
+  }
+}

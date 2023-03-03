@@ -1,0 +1,16 @@
+.transfer {
+  .el-transfer-panel {
+    .el-transfer-panel__empty {
+      height: calc(100% - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 120px;
+      background-image: url("../../assets/image/null-data.png");
+      background-size: 164px;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #333;
+    }
+  }
+}

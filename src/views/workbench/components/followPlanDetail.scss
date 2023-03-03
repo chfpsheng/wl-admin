@@ -1,0 +1,94 @@
+.detail-container {
+  margin-top: 12px;
+  width: 100%;
+  font-size: 14px;
+  padding-left: 20px;
+  margin-right: -20px;
+}
+.detail-item {
+  display: flex;
+  margin-bottom: 16px;
+}
+.detail-item .title {
+  width: 70px;
+  padding-right: 8px;
+  font-size: 14px;
+  font-family: 'Microsoft YaHei,PingFang SC';
+  font-weight: 400;
+  text-align: right;
+  color: #999999;
+}
+.detail-item .text {
+  color: #333;
+}
+.detail-sub-title {
+  margin-bottom: 16px;
+  padding-left: 8px;
+  font-size: 14px;
+  font-family: 'Microsoft YaHei,PingFang SC';
+  font-weight: 400;
+  color: #333333;
+}
+.detail-item .product img {
+  width: 120px;
+  height: 120px;
+  margin-right: 10px;
+}
+.follow-up-plan-datail {
+  padding: 0 24px;
+  margin-right: 0;
+  padding-top: 20px;
+}
+.follow-up-plan-datail .detail-item {
+  width: 100%;
+}
+.follow-up-plan-datail .detail-item .text {
+  width: calc(100% - 70px);
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+}
+.follow-up-plan-datail .detail-item-special .text{
+  width: 100%;
+}
+.follow-item-box {
+  border: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 16px;
+}
+.follow-item-box .list-box {
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+}
+.detail-item-special2 {
+  margin-bottom: 8px;
+}
+.follow-item-box .list-box .dot {
+  margin-right: 4px;
+}
+.follow-item-box .list-box .status {
+  display: flex;
+  align-items: center;
+  width: 62px;
+}
+.follow-item-box .list-box-type1 .dot {
+  background-color: #999;
+}
+.follow-item-box .list-box-type1 .status {
+  color: #999;
+}
+.follow-item-box .list-box-type1 .text {
+  width: 272px;
+  color: #666;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+}
+.special----el-form-item {
+  margin-top: 0;
+}
+.special----el-form-item .information-box {
+  margin-top: -8px;
+}

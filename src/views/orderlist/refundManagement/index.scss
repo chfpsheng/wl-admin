@@ -1,0 +1,137 @@
+.img-inner {
+  width: 14px;
+  height: 14px;
+}
+
+.pay-detail {
+  font-size: 12px;
+}
+
+.right-part {
+  color: red;
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 75px;
+
+  .left {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.bottom:nth-child(1) {
+  margin: 6px 0;
+}
+
+.service {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.service {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.img span {
+  margin-left: 6px;
+}
+
+.img {
+  display: flex;
+}
+
+.img-right {
+  margin-top: -3px;
+  margin-left: 6px;
+}
+
+.bottom {
+  color: #999;
+}
+
+.el-drawer {
+  overflow: scroll;
+}
+
+.text----product {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 16px;
+}
+.detail-item .title {
+  width: 70px;
+  padding-right: 8px;
+  font-size: 14px;
+  font-family: "Microsoft YaHei,PingFang SC";
+  font-weight: 400;
+  text-align: left;
+  color: #999999;
+}
+.detail-item .text {
+  color: #333;
+}
+.detail-sub-title {
+  margin-bottom: 16px;
+  padding-left: 8px;
+  font-size: 14px;
+  font-family: "Microsoft YaHei,PingFang SC";
+  font-weight: 400;
+  color: #333333;
+}
+.detail-item .product img {
+  width: 120px;
+  height: 120px;
+  margin-right: 10px;
+}
+.detail-container {
+  width: 100%;
+  font-size: 14px;
+  padding: 24px;
+}
+.orderMation .el-form .el-form-item__label {
+    color: rgba(153, 153, 153, 1);
+    padding: 0 16px 0 0 ;
+    line-height: 28px;
+  }
+  .orderMation .el-form .el-form-item__content {
+    color: #333;
+    line-height: 28px;
+    padding-left:75px;
+  }
+.orderMation .title label{
+  font-weight: normal;
+}  
+.specalBox .el-input__inner{
+  height:32px;
+  line-height: 32px;
+}
+.specalBo .el-input{
+  width:40%
+}
+.el-drawer .el-drawer__header > span {
+  width: 64px;
+  height: 22px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  color: #333333;
+  line-height: 22px;
+}
+.refund .filter-select-title{
+  color:#333;
+  margin-right:8px;
+}
+.specialTab .el-textarea{
+  width:99%;
+  margin-top:8px;
+}

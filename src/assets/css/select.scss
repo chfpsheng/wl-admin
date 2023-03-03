@@ -1,0 +1,42 @@
+@import './themes.scss';
+// new styles
+.pa-select.el-select * {
+  font-family: $font-family;
+  font-size: $font-size;
+}
+.pa-select .el-input__inner {
+  height: 32px;
+  line-height: 32px;
+  border-radius: 2px;
+  padding: 0 12px;
+}
+.pa-select .el-input__icon {
+  line-height: 32px;
+  height: 32px;
+}
+.pa-select.el-select .el-input.is-focus .el-input__inner {
+  border-color: $themes-bule-color;
+}
+.el-select-dropdown *{
+  font-family: $font-family;
+}
+.el-select-dropdown__item.selected {
+  color: $themes-bule-color;
+}
+.pa-date-picker .el-input__inner:focus {
+  border-color: $themes-bule-color;
+}
+.el-input__inner {
+  color: $font-color!important;
+}
+.el-input.is-disabled .el-input__inner {
+  color: $font-disabled-color!important;
+}
+
+// 防止下拉项过长
+.select-popper {
+  max-width: 300px;
+  .el-select-dropdown__list{
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,14 @@
+@import './themes.scss';
+.pa-checkbox .el-checkbox__input.is-checked .el-checkbox__inner {
+  background-color: $themes-bule-color;
+  border-color: $themes-bule-color;
+}
+.pa-checkbox .el-checkbox__input.is-checked + .el-checkbox__label {
+  color: $themes-bule-color;
+}
+.pa-checkbox .el-checkbox__inner:hover {
+  border-color: $themes-bule-color;
+}
+.pa-checkbox  .el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: $themes-bule-color;
+}

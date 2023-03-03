@@ -1,0 +1,71 @@
+@import './themes.scss';
+.pa-pagination {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  padding: 0 16px;
+}
+.pa-pagination-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $bg-color;
+  padding: 0 24px 0 32px;
+}
+.pa-pagination * {
+  font-size: $font-size;
+  color: $font-color;
+}
+.pa-pagination .el-pagination__total {
+  font-size: $font-size!important;
+  color: #8f9bb3;
+}
+.pa-pagination .el-pagination {
+  padding: 0;
+}
+.pa-pagination-selected-total {
+  color: $themes-bule-color;
+}
+.pa-pagination .el-pager li.active {
+  color: $themes-bule-color;
+}
+// 分页重置
+.pa-pagination .el-pagination{
+  font-weight: normal;
+}
+.pa-pagination .el-pagination.is-background .btn-prev,
+.pa-pagination .el-pagination.is-background .btn-next,
+.pa-pagination .el-pagination.is-background .el-pager li {
+  border: 1px solid #d9d9d9;
+  background: none;
+  color: $font-color;
+}
+.pa-pagination .el-pagination.is-background .el-pager li:not(.disabled).active {
+  background: none;
+  color: $themes-bule-color;
+  border-color: $themes-bule-color;
+}
+.pa-pagination .el-pagination__jump {
+  color: $font-color;
+  margin-left: 8px;
+}
+.pa-pagination .el-pagination__sizes{
+  margin-right: 0;
+}
+.pa-pagination .el-pagination .el-select .el-input .el-input__inner{
+  color: $font-color;
+}
+.pa-pagination .el-pagination__editor.el-input .el-input__inner{
+  color: $font-color;
+}
+.pa-pagination .el-pagination__total:after{
+  content: "记录";
+}
+.pa-pagination .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li{
+  border: none;
+}

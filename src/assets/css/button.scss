@@ -1,0 +1,119 @@
+@import './themes.scss';
+.pa-btn.el-button {
+  border-radius: 2px;
+  padding: 0 15px;
+  height: $btn-height;
+  line-height: 1;
+  font-size: $btn-font-size;
+}
+.pa-btn.el-button .pa-icon {
+  font-size: 14px;
+  margin-right: 4px;
+}
+.pa-btn.el-button span {
+  font-family: $font-family;
+  font-size: $btn-font-size;
+}
+.pa-btn.el-button--default, .pa-btn.el-button--default:focus {
+  color: $btn-font-color;
+  background-color: $btn-color;
+  border-color: $btn-border-color;
+}
+.pa-btn.el-button--default:hover {
+  color: $btn-hover-color;
+  background-color: $btn-color;
+  border-color: $btn-hover-color;
+}
+.pa-btn.el-button--default:active {
+  color: $btn-active-color;
+  background-color: $btn-color;
+  border-color: $btn-active-color;
+}
+.pa-btn.el-button.is-disabled,
+.pa-btn.el-button.is-disabled:focus,
+.pa-btn.el-button.is-disabled:hover {
+  color: $btn-disabled-font-color;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: $btn-disabled-color;
+  border-color: $btn-disabled-border-color;
+}
+.pa-btn.el-button--primary, .pa-btn.el-button--primary:focus {
+  color: $btn-primary-font-color;
+  background-color: $btn-primary-color;
+  border-color: $btn-primary-color;
+}
+.pa-btn.el-button--primary:hover {
+  color: $btn-primary-font-color;
+  background-color: $btn-primary-hover-color;
+  border-color: $btn-primary-hover-color;
+}
+.pa-btn.el-button--primary:active {
+  color: $btn-primary-font-color;
+  background-color: $btn-primary-active-color;
+  border-color: $btn-primary-active-color;
+}
+.pa-btn.el-button--primary.is-disabled,
+.pa-btn.el-button--primary.is-disabled:active,
+.pa-btn.el-button--primary.is-disabled:focus,
+.pa-btn.el-button--primary.is-disabled:hover {
+  color: $btn-primary-disabled-font-color;
+  background-color: $btn-primary-disabled-color;
+  border-color: $btn-primary-disabled-color;
+}
+.pa-btn.el-button--text, .pa-btn.el-button--text:focus{
+  color: $btn-disabled-font-color;
+  border: none;
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.pa-btn.el-button--text:hover {
+  color: $btn-text-font-hover-color;
+  border: none;
+  background: none;
+}
+.pa-btn.el-button--text:active {
+  color: $btn-text-font-active-color;
+  border: none;
+  background: none;
+}
+.pa-btn.el-button--text.is-disabled,
+.pa-btn.el-button--text.is-disabled:focus,
+.pa-btn.el-button--text.is-disabled:hover {
+  color: $btn-disabled-border-color;
+  cursor: not-allowed;
+  background: none;
+  border: none;
+}
+.pa-btn.el-button--primary-text, .pa-btn.el-button--primary-text:focus{
+  color: $btn-primary-color;
+  border: none;
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.pa-btn.el-button--primary-text:hover {
+  color: $btn-primary-hover-color;
+  border: none;
+  background: none;
+}
+.pa-btn.el-button--primary-text:active {
+  color: $btn-primary-active-color;
+  border: none;
+  background: none;
+}
+.pa-btn.el-button--primary-text.is-disabled,
+.pa-btn.el-button--primary-text.is-disabled:focus,
+.pa-btn.el-button--primary-text.is-disabled:hover {
+  color: $btn-disabled-border-color;
+  cursor: not-allowed;
+  background: none;
+  border: none;
+}
+.el-button--primary, .el-button--default {
+  min-width: 72px;
+}
+.el-button--primary-text {
+  min-width: auto;
+}

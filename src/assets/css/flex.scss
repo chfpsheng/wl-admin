@@ -1,0 +1,47 @@
+/*
+  flex布局
+  .flex-main为主体可滚动部分
+ */
+.flex {
+  display: flex;
+
+  >* {
+    flex-shrink: 0;
+  }
+
+  &.flex-between {
+    justify-content: space-between;
+  }
+
+  &.flex-column {
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+
+    >div {
+      width: 100%;
+    }
+
+    >.flex-main {
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+  &.flex-center{
+    align-items: center;
+  }
+  &.flex-row {
+    align-items: center;
+    height: 100%;
+
+    >div {
+      height: 100%;
+    }
+  }
+
+  .flex-main {
+    flex: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,130 @@
+@import './themes.scss';
+// new styles
+.pa-drawer div {
+  box-sizing: border-box;
+}
+.pa-drawer .el-drawer * {
+  font-family: $font-family;
+}
+.pa-drawer .drawer-header {
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 24px;
+  margin: 0;
+  border-bottom: 1px solid #e8e8e8;
+  span {
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+  }
+  span:after {
+    content: "";
+    // width: 4px;
+    // height: 16px;
+    background: $themes-bule-color;
+    position: absolute;
+    top: 16px;
+    left: 18px;
+  }
+}
+.pa-drawer .drawer-header .el-drawer__close-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+}
+.pa-drawer .drawer-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.pa-drawer .drawer-footer {
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  z-index: 9999;
+  background: #fff;
+}
+.pa-drawer .el-button+.el-button {
+  margin-left: 14px;
+}
+.pa-drawer .drawer-body {
+  width: 100%;
+  height: calc(100% - 70px);
+  overflow: hidden;
+}
+.drawer-body-box {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.pa-drawer .el-form-item__error {
+  color: #f56c6c;
+}
+.pa-drawer .el-popconfirm .el-popconfirm__main {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.pa-drawer .el-dialog__close:hover {
+  color: $themes-bule-color;
+}
+
+.el-popconfirm .el-popconfirm__main {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.el-popconfirm .el-button--primary {
+  margin-left: 10px;
+  background: #0066CC;
+}
+.el-popconfirm .el-button--text {
+  color: #0066CC;
+}
+/*---抽屉中详情样式---*/
+.pa-drawer .drawer-box{
+  .el-form-item__content{
+    line-height: 1;
+  }
+  .detail-container{
+
+    .detail-sub-title{
+      padding-left: 8px;
+      margin-bottom: 16px !important;
+      position: relative;
+      &::before{
+        display: block;
+        content: " ";
+        height: 14px;
+        width: 2px;
+        background-color: #0066CC;
+        position: absolute;
+        left: 0px;
+        top:3px
+      }
+    }
+    .pa-el-tag{
+      margin: 4px 8px 4px 0;
+      padding: 0 8px;
+    }
+    .detail-item{
+      .patient-title{
+        align-items:unset !important;
+        padding-top: 16px;
+      }
+    }
+  }
+}
+/*---抽屉中详情样式---*/
+

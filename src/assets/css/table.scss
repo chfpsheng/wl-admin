@@ -1,0 +1,56 @@
+@import './themes.scss';
+.pa-table {
+  width: 100%;
+}
+.pa-table th, .pa-table td {
+  color: $font-color;
+  font-family: $font-family;
+}
+.pa-table.el-table thead th {
+  background-color: $table-header-color;
+}
+.pa-table.el-table th.el-table__cell > .cell {
+  padding-left: 24px ;
+  padding-right: 0 ;
+}
+.pa-table.el-table td.el-table__cell > .cell {
+  padding-left: 24px ;
+  padding-right: 0 ;
+}
+.pa-table.el-table::before {
+  height: 0!important;
+}
+.pa-table .el-button + .el-button {
+  margin-left: 24px;
+}
+.pa-table.el-table th, .pa-table.el-table td {
+  padding: 0;
+  height: 48px;
+}
+.pa-table .hover-row {
+  background-color: #f6f7f9!important;
+}
+.el-table__fixed::before, .el-table__fixed-right::before {
+  height: 0!important;
+}
+.pa-table .el-table__fixed-right-patch {
+  background-color: #f7f9fc;
+}
+.el-dialog .table-box {
+  width: 100%;
+  padding: 40px 24px !important;
+  background: #fff;
+}
+.el-dialog .pa-pagination{
+  bottom: 70px !important;
+}
+.table--form--item .el-form-item__content {
+  display: flex;
+}
+.table--form--item-selected {
+  display: flex;
+  width: 56px;
+  margin-left: 8px;
+  cursor: pointer;
+  color: #06c;
+}

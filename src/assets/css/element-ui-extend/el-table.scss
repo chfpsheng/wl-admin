@@ -1,0 +1,180 @@
+$--font-color-default: #333;
+.table-view {
+  padding: 0 24px;
+  background-color: #fff;
+
+  .table-handler {
+    padding: 8px 0;
+  }
+}
+.table-common.table-border-out {
+  border: 1px solid #ebebeb;
+  border-bottom: none;
+}
+.table-common.el-table {
+  color: $--font-color-default;
+  font-size: 14px;
+  table-layout: fixed;
+
+  // &::before{display: none;}
+  &.el-table--small th,
+  &.el-table--small td {
+    padding: 8px 0 7px;
+    height: 48px;
+  }
+
+  &.scroll-fixed {
+    .el-table__header-wrapper {
+      position: fixed;
+      z-index: 999;
+    }
+  }
+
+  .cell {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  &.table-common.el-table .el-table__header .cell,
+  &.el-table--border .el-table__cell:first-child .cell {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  &.table-border {
+    .el-table__body .el-table__row > td:first-child > .cell,
+    .cell {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+  // 合并行
+  .merge-column {
+    border-left: 1px solid #ebebeb;
+    .cell {
+      height: auto;
+      text-align: center;
+    }
+  }
+
+  // 表头
+  .el-table__header {
+    .cell {
+      padding-left: 8px;
+      padding-right: 8px;
+      line-height: 31px;
+      font-weight: 500;
+    }
+
+    .is-right {
+      > .cell {
+        padding-right: 24px;
+      }
+    }
+
+    tr {
+      background-color: #f7f9fc;
+      color: $--font-color-default;
+      th {
+        background-color: #f7f9fc;
+
+        // &::after {
+        //   content: "";
+        //   position: absolute;
+        //   left: 0;
+        //   top: 50%;
+        //   margin-top: -12px;
+        //   display: block;
+        //   width: 1px;
+        //   height: 24px;
+        //   background-color: #ebebeb;
+        // }
+        // 合并表格操作列表头
+        &.th-center {
+          text-align: center;
+          &::after {
+            height: 100%;
+            top: 0;
+            margin-top: 0;
+          }
+        }
+        &.gutter,
+        &:first-child {
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .el-table__body {
+    .is-right {
+      > .cell {
+        padding-right: 24px;
+      }
+    }
+
+    .el-table__row {
+      > td:first-child {
+        > .cell {
+          padding-left: 8px;
+        }
+      }
+    }
+  }
+
+  .el-table__fixed-right-patch {
+    top: 0;
+    background-color: #f7f9fc;
+  }
+
+  &.el-table th.gutter,
+  &.el-table td.gutter {
+    border-bottom: 1px solid #ebeef5;
+  }
+
+  &.el-table .el-button--text {
+    padding: 0;
+    height: auto;
+    border: none;
+  }
+
+  .el-table__empty-block {
+    // background-image: url("~@/assets/images/svg/empty.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    .el-table__empty-text {
+      margin-top: 70px;
+      color: rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+.table-common.table-collapse {
+  td {
+    color: #666;
+    border-bottom: 1px dashed #ebebeb;
+    &:first-child {
+      padding-left: 16px;
+    }
+  }
+}
+// 树表格对齐
+.tree-table {
+  .el-table__row {
+    &:not([class*="el-table__row--level"]) {
+      td:first-child .cell {
+        text-indent: 23px;
+      }
+    }
+  }
+}
+.el-table__expand-icon .el-icon-arrow-right::before {
+  font-size: 14px;
+  font-family: iconfont !important;
+  content: "\e6b9";
+}
+.row-clickable {
+  cursor: pointer;
+}

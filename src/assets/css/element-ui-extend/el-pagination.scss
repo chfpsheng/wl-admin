@@ -1,0 +1,23 @@
+.pagination-common.el-pagination {
+  padding: 24px 0;
+  text-align: right;
+  color: #333;
+  line-height: 32px;
+  > .el-pagination__total {
+    line-height: inherit;
+    color: #999;
+  }
+  > .el-pagination__sizes,
+  .el-input__inner {
+    height: 32px;
+    line-height: inherit;
+  }
+  .el-pagination__editor.el-input .el-input__inner,
+  .btn-prev,
+  .btn-next,
+  > .el-pager > li {
+    height: 32px;
+    line-height: 32px;
+    font-weight: normal;
+  }
+}

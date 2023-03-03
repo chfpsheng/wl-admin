@@ -1,0 +1,30 @@
+.el-drawer {
+  outline: none;
+
+  * {
+    outline: none;
+  }
+
+  .el-drawer__body {
+    overflow: hidden;
+  }
+  .el-drawer__header {
+    padding: 19px 24px;
+    margin: 0;
+    border-bottom: 1px solid #ebebeb;
+
+    > span {
+      color: #242626;
+    }
+  }
+
+  .drawer-footer {
+    padding: 24px;
+    text-align: right;
+    border-top: 1px solid #ebebeb;
+
+    button {
+      width: 72px;
+    }
+  }
+}

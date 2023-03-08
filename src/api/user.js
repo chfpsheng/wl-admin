@@ -19,14 +19,14 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: "/cloud-user/login/logout",
+    url: "/vue-element-admin/user/logout",
     method: "post"
   });
 }
 
 export function getUser(params) {
   return request({
-    url: "/cloud-user/sysRole/queryByUserId",
+    url: "/vue-element-admin/sysRole/queryByUserId",
     method: "post",
     data: params
   });
@@ -35,7 +35,7 @@ export function getUser(params) {
 // 修改密码
 export function changePassWord(params) {
   return request({
-    url: `/cloud-user/sysUser/changePassWord?oldPassword=${params.oldPassword}&newPassword=${params.newPassword}&userId=${params.userId}`,
+    url: `/vue-element-admin/sysUser/changePassWord?oldPassword=${params.oldPassword}&newPassword=${params.newPassword}&userId=${params.userId}`,
     method: "post"
   });
 }

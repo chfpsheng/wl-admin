@@ -1,5 +1,5 @@
 module.exports = {
-  title: '互联网医院管理系统',
+  title: "物联网云平台",
 
   /**
    * @type {boolean} true | false
@@ -38,5 +38,5 @@ module.exports = {
    * The default is only used in the production env
    * If you want to also use it in dev, you can pass ['production', 'development']
    */
-  errorLog: 'production'
-}
+  errorLog: "production"
+};

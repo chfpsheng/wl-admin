@@ -1,34 +1,50 @@
 <template>
   <div class="header-box">
     <div class="item-box left-box">
-      <i class="iconfont icon-a-Internethospital-icon pa-logo" />
-      <span class="header-title">
-        互联网医院后台管理
-      </span>
+      <img
+        data-v-37dfd6fc=""
+        src="static/img/logo-huarun.f732efa8.png"
+        alt=""
+        class="logoImg"
+        width="104px"
+        height="36px"
+      />
+      <span class="header-title"> 物联网云平台 </span>
     </div>
     <div class="item-box right-box">
-      <i v-if="duty === '4'" class="icon iconfont" :class="imOnline === 1 ? 'icon-on-line-icon1' : 'icon-off-line-icon1'" style="color: #fff" />
-      <el-dropdown v-if="duty === '4'" style="margin-left:8px;margin-right:8px">
+      <i
+        v-if="duty === '4'"
+        class="icon iconfont"
+        :class="imOnline === 1 ? 'icon-on-line-icon1' : 'icon-off-line-icon1'"
+        style="color: #fff"
+      />
+      <el-dropdown
+        v-if="duty === '4'"
+        style="margin-left: 8px; margin-right: 8px"
+      >
         <span class="el-dropdown-link">
-          {{ imOnline === 1 ? "在线" : "离线" }}<i class="el-icon-arrow-down el-icon--right" />
+          {{ imOnline === 1 ? "在线" : "离线"
+          }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="switchStatus()">
-            <span style="display:block;">{{ imOnline === 1 ? "离线" : "在线" }}</span>
+            <span style="display: block">{{
+              imOnline === 1 ? "离线" : "在线"
+            }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <img src="../../../assets/image/touxiang.png" class="user-avatar">
+      <img src="../../../assets/image/touxiang.png" class="user-avatar" />
       <el-dropdown>
         <span class="el-dropdown-link">
           {{ userName }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="onReset">
-            <span style="display:block;">账户设置</span>
+            <span style="display: block">账户设置</span>
           </el-dropdown-item>
           <el-dropdown-item @click.native="onLogout">
-            <span style="display:block;">{{ $t('navbar.logOut') }}</span>
+            <span style="display: block">{{ $t("navbar.logOut") }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -37,122 +53,116 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { ImOnlineMethod, ImOffline, chatSessionAssign } from '@/api/im'
+import { mapState } from "vuex";
+import { ImOnlineMethod, ImOffline, chatSessionAssign } from "@/api/im";
 export default {
-  name: 'PaHeader',
+  name: "PaHeader",
   data() {
     return {
-      userName: '',
-      userData: '',
+      userName: "",
+      userData: "",
       interval: 60000,
-      heartbeat: null
-    }
+      heartbeat: null,
+    };
   },
   computed: {
     ...mapState({
       imOnline: (state) => parseInt(state.user.imOnline, 10),
       duty: (state) => state.user.duty,
-      imUserId: (state) => state.user.imUserId
-    })
+      imUserId: (state) => state.user.imUserId,
+    }),
   },
-  watch: {
-    
-  },
+  watch: {},
   mounted() {
-    this.userName = this.$local.get('userData').displayName
-    this.userData = this.$local.get('userData')
-    
-    if (this.imOnline && this.userData.duty === '4') {
-      this.userData && this.userData.imUserId ? this.heartbeatFn() : ''
+    this.userName = this.$local.get("userData").displayName;
+    this.userData = this.$local.get("userData");
+
+    if (this.imOnline && this.userData.duty === "4") {
+      this.userData && this.userData.imUserId ? this.heartbeatFn() : "";
       this.heartbeat = setInterval(() => {
-        this.userData && this.userData.imUserId ? this.heartbeatFn() : ''
-      }, this.interval)
+        this.userData && this.userData.imUserId ? this.heartbeatFn() : "";
+      }, this.interval);
     }
   },
   destroyed() {
-    clearInterval(this.heartbeat)
+    clearInterval(this.heartbeat);
   },
   methods: {
     async heartbeatFn() {
-     
       const result = await this.$requestPost(
         `/cloud-im/user/online?imUserId=${this.userData.imUserId}`,
         {}
-      )
-     
+      );
     },
     toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
+      this.$store.dispatch("app/toggleSideBar");
     },
     // 离线接口
     switchStatus() {
       if (this.imOnline === 1) {
         ImOffline(this.imUserId).then((res) => {
-          this.$store.commit('user/SET_IMONLINE', 0)
-          localStorage.setItem('imOnline', 0)
-          clearInterval(this.heartbeat)
-          this.heartbeat = null
-        })
+          this.$store.commit("user/SET_IMONLINE", 0);
+          localStorage.setItem("imOnline", 0);
+          clearInterval(this.heartbeat);
+          this.heartbeat = null;
+        });
       } else {
         ImOnlineMethod(this.imUserId).then((res) => {
-          this.$store.commit('user/SET_IMONLINE', 1)
-          localStorage.setItem('imOnline', 1)
+          this.$store.commit("user/SET_IMONLINE", 1);
+          localStorage.setItem("imOnline", 1);
           if (!this.heartbeat) {
             this.heartbeat = setInterval(() => {
-              this.userData && this.userData.imUserId ? this.heartbeatFn() : ''
-            }, this.interval)
-           
+              this.userData && this.userData.imUserId ? this.heartbeatFn() : "";
+            }, this.interval);
           }
           //上线成功后还需要调用
-          chatSessionAssign(this.imUserId).then(() => {
-           
-          })
-        })
+          chatSessionAssign(this.imUserId).then(() => {});
+        });
       }
     },
     // 退出登录
     onLogout() {
-      this.$confirm('确认退出当前账号吗？', '安全退出', {
-        confirmButtonText: '退出',
-        cancelButtonText: '取消',
-        type: 'warning'
+      this.$confirm("确认退出当前账号吗？", "安全退出", {
+        confirmButtonText: "退出",
+        cancelButtonText: "取消",
+        type: "warning",
       }).then(() => {
-        this.tim.logout().then(() => {
-         
-          this.$store.commit('toggleIsLogin')
-          this.$store.commit('stopComputeCurrent')
-          this.$store.commit('reset')
-          this.logout()
-          clearInterval(this.heartbeat)
-        }).catch(()=>{
-          this.logout()
-          clearInterval(this.heartbeat)
-        })
-        
-      })
+        this.tim
+          .logout()
+          .then(() => {
+            this.$store.commit("toggleIsLogin");
+            this.$store.commit("stopComputeCurrent");
+            this.$store.commit("reset");
+            this.logout();
+            clearInterval(this.heartbeat);
+          })
+          .catch(() => {
+            this.logout();
+            clearInterval(this.heartbeat);
+          });
+      });
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
+      await this.$store.dispatch("user/logout");
       this.$message({
-        message: '退出成功',
-        type: 'success'
-      })
+        message: "退出成功",
+        type: "success",
+      });
       setTimeout(() => {
-        this.$router.push(`/login`)
-      }, 1000)
+        this.$router.push(`/login`);
+      }, 1000);
     },
     // 账户设置
     onReset() {
-      this.$router.push('/mine/reset')
-    }
-  }
-}
+      this.$router.push("/mine/reset");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .pa-logo {
-  color: #fff!important;
+  color: #fff !important;
 }
 .header-box {
   display: flex;
@@ -165,7 +175,7 @@ export default {
   left: 0;
   z-index: 2000;
   padding: 0 16px;
-  background: url('../../../assets/image/bg2.png') 0 0/cover no-repeat;
+  background: url("../../../assets/image/bg2.png") 0 0 / cover no-repeat;
 }
 .item-box {
   display: flex;
@@ -192,7 +202,8 @@ export default {
   cursor: pointer;
 }
 
-.icon-off-line-icon,.icon-on-line-icon{
-  color:#fff;
+.icon-off-line-icon,
+.icon-on-line-icon {
+  color: #fff;
 }
 </style>

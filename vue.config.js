@@ -33,7 +33,7 @@ function getProxyConfig() {
   return config;
 }
 
-const name = defaultSettings.title || "互联网医院管理系统"; // page title
+const name = defaultSettings.title || "物联网云平台"; // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.

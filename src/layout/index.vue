@@ -22,7 +22,6 @@ import { AppMain, Navbar, Sidebar, TagsView, PaHeader } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
 import { mapState } from "vuex";
 import { ACTION } from "@/utils/trtcCustomMessageMap";
-import { ImOffline,  getImUserSig} from "@/api/im";
 
 export default {
   name: "Layout",
@@ -73,79 +72,40 @@ export default {
   },
   methods: {
     login() {
-      getImUserSig().then(res=>{
+      getImUserSig().then((res) => {
         console.log("getImUserSig", res);
         this.tim
-        .login({
-          userID: this.userID,
-          userSig: res.data,
-        })
-        .then(() => {
-          this.$store.commit("updateLogin", true);
-          this.$store.commit("startComputeCurrent");
-          // this.$store.commit('showMessage', {
-          //   type: 'success',
-          //   message: 'IM登录成功'
-          // })
-          if (!this.imOnline) {
-            ImOffline(this.userID)
-              .then(() => {
-                this.$store.commit("user/SET_IMONLINE", 0);
-                localStorage.setItem("imOnline", 0);
-              })
-              .catch((e) => {
-                console.log("e", e);
-              });
-          }
-
-          this.$store.commit({
-            type: "GET_USER_INFO",
-            userID: this.imUserId,
+          .login({
+            userID: this.userID,
             userSig: res.data,
-            sdkAppID: process.env.VUE_APP_SDKAPPID,
+          })
+          .then(() => {
+            this.$store.commit("updateLogin", true);
+            this.$store.commit("startComputeCurrent");
+            // this.$store.commit('showMessage', {
+            //   type: 'success',
+            //   message: 'IM登录成功'
+            // })
+
+            this.$store.commit({
+              type: "GET_USER_INFO",
+              userID: this.imUserId,
+              userSig: res.data,
+              sdkAppID: process.env.VUE_APP_SDKAPPID,
+            });
+            // this.$store.commit('showMessage', {
+            //   type: 'success',
+            //   message: '登录成功'
+            // })
+          })
+          .catch((error) => {
+            this.loading = false;
+            this.$store.commit("showMessage", {
+              message: "登录失败：" + error.message,
+              type: "error",
+            });
           });
-          // this.$store.commit('showMessage', {
-          //   type: 'success',
-          //   message: '登录成功'
-          // })
-          // 初始化监听器
-          this.initListener();
-        })
-        .catch((error) => {
-          this.loading = false;
-          this.$store.commit("showMessage", {
-            message: "登录失败：" + error.message,
-            type: "error",
-          });
-        });
-      })
-      
-    },
-    initListener() {
-      // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
-      this.tim.on(this.TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this);
-      // SDK NOT READT
-      this.tim.on(this.TIM.EVENT.SDK_NOT_READY, this.onReadyStateUpdate, this);
-      // 被踢出
-      this.tim.on(this.TIM.EVENT.KICKED_OUT, this.onKickOut);
-      // SDK内部出错
-      this.tim.on(this.TIM.EVENT.ERROR, this.onError);
-      // 收到新消息
-      this.tim.on(this.TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage);
-      // 会话列表更新
-      this.tim.on(
-        this.TIM.EVENT.CONVERSATION_LIST_UPDATED,
-        this.onUpdateConversationList
-      );
-      // 群组列表更新
-      this.tim.on(this.TIM.EVENT.GROUP_LIST_UPDATED, this.onUpdateGroupList);
-      // 网络监测
-      this.tim.on(this.TIM.EVENT.NET_STATE_CHANGE, this.onNetStateChange);
-      // 已读回执
-      this.tim.on(
-        this.TIM.EVENT.MESSAGE_READ_BY_PEER,
-        this.onMessageReadByPeer
-      );
+      });
     },
     closePatientEdit(val) {
       this.editVisible = val;

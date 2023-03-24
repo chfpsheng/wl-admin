@@ -18,22 +18,6 @@
         :class="imOnline === 1 ? 'icon-on-line-icon1' : 'icon-off-line-icon1'"
         style="color: #fff"
       />
-      <el-dropdown
-        v-if="duty === '4'"
-        style="margin-left: 8px; margin-right: 8px"
-      >
-        <span class="el-dropdown-link">
-          {{ imOnline === 1 ? "在线" : "离线"
-          }}<i class="el-icon-arrow-down el-icon--right" />
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="switchStatus()">
-            <span style="display: block">{{
-              imOnline === 1 ? "离线" : "在线"
-            }}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
       <img src="../../../assets/image/touxiang.png" class="user-avatar" />
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -54,7 +38,6 @@
 
 <script>
 import { mapState } from "vuex";
-import { ImOnlineMethod, ImOffline, chatSessionAssign } from "@/api/im";
 export default {
   name: "PaHeader",
   data() {
@@ -96,29 +79,6 @@ export default {
     },
     toggleSideBar() {
       this.$store.dispatch("app/toggleSideBar");
-    },
-    // 离线接口
-    switchStatus() {
-      if (this.imOnline === 1) {
-        ImOffline(this.imUserId).then((res) => {
-          this.$store.commit("user/SET_IMONLINE", 0);
-          localStorage.setItem("imOnline", 0);
-          clearInterval(this.heartbeat);
-          this.heartbeat = null;
-        });
-      } else {
-        ImOnlineMethod(this.imUserId).then((res) => {
-          this.$store.commit("user/SET_IMONLINE", 1);
-          localStorage.setItem("imOnline", 1);
-          if (!this.heartbeat) {
-            this.heartbeat = setInterval(() => {
-              this.userData && this.userData.imUserId ? this.heartbeatFn() : "";
-            }, this.interval);
-          }
-          //上线成功后还需要调用
-          chatSessionAssign(this.imUserId).then(() => {});
-        });
-      }
     },
     // 退出登录
     onLogout() {

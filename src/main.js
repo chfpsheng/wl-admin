@@ -45,8 +45,7 @@ import {
 } from "element-ui";
 import Avatar from "./components/avatar.vue";
 // import Index from './index.vue'
-import tim from "./tim.js";
-import TIM from "tim-js-sdk";
+
 // import TWebLive from 'tweblive'
 import VueClipboards from "vue-clipboard2";
 // import './assets/icon/iconfont-im.css'
@@ -80,14 +79,11 @@ if (process.env.NODE_ENV === "production") {
   mockXHR();
 }
 
-window.tim = tim;
-window.TIM = TIM;
 // window.TRTCCalling = TRTCCalling
 // window.trtcCalling = trtcCalling
 window.store = store;
 Vue.prototype.$bus = new Vue(); // event Bus 用于无关系组件间的通信。
-Vue.prototype.tim = tim;
-Vue.prototype.TIM = TIM;
+
 // Vue.prototype.TWebLive = TWebLive
 Vue.prototype.$store = store;
 Vue.prototype.$confirm = MessageBox.confirm;

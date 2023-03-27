@@ -17,18 +17,16 @@ const local = {
   }
 };
 const userData = JSON.parse(localStorage.getItem("userData"));
-const imOnline = localStorage.getItem("imOnline")
-  ? parseInt(localStorage.getItem("imOnline"), 10)
-  : 1;
-console.log("333333333", userData && userData.duty, imOnline);
+
 const state = {
   token: getToken(),
   duty: userData && userData.duty,
   imUserId: userData && userData.imUserId,
-  imOnline: imOnline,
   name: "",
   avatar: "",
   introduction: "",
+  userDetail: "",
+  permissions: "",
   roles: []
 };
 
@@ -42,9 +40,6 @@ const mutations = {
   SET_IMUSERID: (state, imUserId) => {
     state.imUserId = imUserId;
   },
-  SET_IMONLINE: (state, imOnline) => {
-    state.imOnline = imOnline;
-  },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction;
   },
@@ -54,6 +49,12 @@ const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar;
   },
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions;
+  },
+  SET_UserDetail: (state, userDetail) => {
+    state.userDetail = userDetail;
+  },
   SET_ROLES: (state, roles) => {
     state.roles = roles;
   }
@@ -61,85 +62,109 @@ const mutations = {
 
 const actions = {
   // user login
+  // login({ commit }, userInfo) {
+  //   const { username, password, offline } = userInfo;
+  //   return new Promise((resolve, reject) => {
+  //     login({ username: username.trim(), password: password })
+  //       .then(response => {
+  //         //localStorage.setItem('userData', JSON.stringify(response.data))
+  //         // local.get('userData') ? local.remove('userData') : ''
+  //         // local.set('userData', response.data)
+  //         local.get("userData") ? local.remove("userData") : "";
+  //         local.set("userData", response.data);
+
+  //         const data = response.data;
+
+  //         commit("SET_TOKEN", data.token);
+
+  //         commit("SET_ROLES", [data.userCode]); // 增加角色的设置
+  //         setToken(data.token);
+
+  //         commit("premission/SET_ROUTES", asyncRoutes, { root: true });
+
+  //         this.state.permission.routes = deepClone([
+  //           ...constantRoutes,
+  //           ...asyncRoutes
+  //         ]);
+  //         // const routes = deepClone([...constantRoutes, ...asyncRoutes])
+  //         // router.addRoutes(asyncRoutes)
+  //         resolve();
+  //       })
+  //       .catch(error => {
+  //         reject(error);
+  //       });
+  //   });
+
+  //   // commit('SET_TOKEN', '')
+  //   // commit('SET_ROLES', 'admin') // 增加角色的设置
+  //   // setToken('')
+  // },
   login({ commit }, userInfo) {
-    const { username, password, offline } = userInfo;
+    const username = userInfo.username.trim();
+    const password = userInfo.password;
+    const code = userInfo.code;
+    const uuid = userInfo.uuid;
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password })
-        .then(response => {
-          //localStorage.setItem('userData', JSON.stringify(response.data))
-          // local.get('userData') ? local.remove('userData') : ''
-          // local.set('userData', response.data)
-          local.get("userData") ? local.remove("userData") : "";
-          local.set("userData", response.data);
-          local.get("imOnline") ? local.remove("imOnline") : "";
-
-          const data = response.data;
-
-          commit("SET_TOKEN", data.token);
-
-          commit("SET_DUTY", data.duty);
-          commit("SET_IMUSERID", data.imUserId);
-          commit("SET_IMONLINE", offline ? 0 : 1); //根据登录选择离线还是在线，存储对应的状态
-          commit("SET_ROLES", [data.userCode]); // 增加角色的设置
-          setToken(data.token);
-
-          // const preAuthRoute = preRoleAuthList(data.funcData)
-          // const authRoute = getAuthRoute(asyncRoutes, preAuthRoute, this._vm)
-          // // asyncRoutes = this._vm.$lodash.cloneDeep(authRoute)
-          commit("premission/SET_ROUTES", asyncRoutes, { root: true });
-          // local.get('authRoute') ? local.remove('authRoute') : ''
-          // local.set('authRoute', authRoute)
-          // 设置IM相关的store数据
-          // commit('toggleIsLogin', true)
-          // commit('startComputeCurrent')
-          // commit({
-          //   type: 'GET_USER_INFO',
-          //   userID: data.imUserId,
-          //   userSig: window.genTestUserSig(this.imUserId).userSig,
-          //   sdkAppID: window.genTestUserSig('').SDKAppID
-          // })
-
-          this.state.permission.routes = deepClone([
-            ...constantRoutes,
-            ...asyncRoutes
-          ]);
-          // const routes = deepClone([...constantRoutes, ...asyncRoutes])
-          // router.addRoutes(asyncRoutes)
+      login(username, password, code, uuid)
+        .then(res => {
+          console.log("setToken", res);
+          setToken(res.token);
+          commit("SET_TOKEN", res.token);
           resolve();
         })
         .catch(error => {
           reject(error);
         });
     });
-
-    // commit('SET_TOKEN', '')
-    // commit('SET_ROLES', 'admin') // 增加角色的设置
-    // setToken('')
   },
 
   // get user info
-  getInfo({ commit, state }) {
+  // getInfo({ commit, state }) {
+  //   return new Promise((resolve, reject) => {
+  //     getInfo(state.token)
+  //       .then(response => {
+  //         const { data } = response;
+
+  //         if (!data) {
+  //           reject("Verification failed, please Login again.");
+  //         }
+
+  //         const { roles, name, avatar, introduction } = data;
+
+  //         // roles must be a non-empty array
+  //         if (!roles || roles.length <= 0) {
+  //           reject("getInfo: roles must be a non-null array!");
+  //         }
+
+  //         commit("SET_ROLES", roles);
+  //         commit("SET_NAME", name);
+  //         commit("SET_AVATAR", avatar);
+  //         commit("SET_INTRODUCTION", introduction);
+  //         resolve(data);
+  //       })
+  //       .catch(error => {
+  //         reject(error);
+  //       });
+  //   });
+  // },
+  // 获取用户信息
+  GetInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
-        .then(response => {
-          const { data } = response;
-
-          if (!data) {
-            reject("Verification failed, please Login again.");
-          }
-
-          const { roles, name, avatar, introduction } = data;
-
-          // roles must be a non-empty array
-          if (!roles || roles.length <= 0) {
-            reject("getInfo: roles must be a non-null array!");
-          }
-
-          commit("SET_ROLES", roles);
-          commit("SET_NAME", name);
+      getInfo()
+        .then(res => {
+          const user = res.data;
+          const avatar = require("@/assets/image/defaultImg.png");
+          //(user.avatar == "" || user.avatar == null) ? require("@/assets/images/defaultImg.png") : process.env.VUE_APP_BASE_API + user.avatar;
+          /*  if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+           commit('SET_ROLES', res.roles)
+           commit('SET_PERMISSIONS', res.permissions)
+         } else {
+           commit('SET_ROLES', ['ROLE_DEFAULT'])
+         } */
+          commit("SET_UserDetail", user);
+          commit("SET_NAME", user.nickName);
           commit("SET_AVATAR", avatar);
-          commit("SET_INTRODUCTION", introduction);
-          resolve(data);
+          resolve(res);
         })
         .catch(error => {
           reject(error);
@@ -154,6 +179,8 @@ const actions = {
         .then(() => {
           commit("SET_TOKEN", "");
           commit("SET_ROLES", []);
+          commit("SET_PERMISSIONS", []);
+          removeToken();
           removeToken();
           resetRouter();
 

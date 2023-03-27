@@ -63,6 +63,39 @@
         </el-form-item>
       </el-tooltip>
 
+      <el-form-item prop="code" v-if="captchaEnabled">
+        <span class="svg-container">
+          <svg-icon icon-class="validCode" />
+        </span>
+        <el-input
+          v-model="loginForm.code"
+          auto-complete="off"
+          placeholder="验证码"
+          style="width: 200px"
+          @keyup.enter.native="handleLogin"
+        >
+          <!-- <svg-icon
+            slot="prefix"
+            icon-class="validCode"
+            class="el-input__icon input-icon"
+          /> -->
+        </el-input>
+        <div class="login-code">
+          <img
+            width="100px"
+            height="56px"
+            :src="codeUrl"
+            @click="getCode"
+            class="login-code-img"
+          />
+        </div>
+      </el-form-item>
+      <el-checkbox
+        v-model="loginForm.rememberMe"
+        style="margin: 0px 0px 25px 0px"
+        >记住密码</el-checkbox
+      >
+
       <!-- <div class="pa--login-status">
         <div class="title">管家状态</div>
         <el-radio-group v-model="loginForm.offline">
@@ -86,7 +119,9 @@
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
       >
-        {{ $t("login.logIn") }}
+        <!-- {{ $t("login.logIn") }} -->
+        <span v-if="!loading">登 录</span>
+        <span v-else>登 录 中...</span>
       </el-button>
     </el-form>
   </div>
@@ -94,6 +129,9 @@
 
 <script>
 import md5 from "js-md5";
+import { getCodeImg } from "@/api/user.js";
+import Cookies from "js-cookie";
+import { encrypt, decrypt } from "@/utils/jsencrypt";
 
 export default {
   name: "Login",
@@ -113,24 +151,31 @@ export default {
       }
     };
     return {
+      passwordType: "password",
+      codeUrl: "",
       loginForm: {
         username: "",
         password: "",
-        offline: false,
+        rememberMe: false,
+        code: "",
+        uuid: "",
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", validator: validateUsername },
+          { required: true, trigger: "blur", message: "请输入您的账号" },
         ],
         password: [
-          { required: true, trigger: "blur", validator: validatePassword },
+          { required: true, trigger: "blur", message: "请输入您的密码" },
         ],
+        code: [{ required: true, trigger: "change", message: "请输入验证码" }],
       },
-      passwordType: "password",
-      capsTooltip: false,
       loading: false,
-      showDialog: false,
+      // 验证码开关
+      captchaEnabled: true,
+      // 注册开关
+      register: false,
       redirect: undefined,
+      capsTooltip: false,
       otherQuery: {},
     };
   },
@@ -148,6 +193,8 @@ export default {
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
+    this.getCode();
+    this.getCookie();
   },
   mounted() {
     if (this.loginForm.username === "") {
@@ -160,6 +207,26 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    getCode() {
+      getCodeImg().then((res) => {
+        this.captchaEnabled =
+          res.captchaEnabled === undefined ? true : res.captchaEnabled;
+        if (this.captchaEnabled) {
+          this.codeUrl = "data:image/gif;base64," + res.img;
+          this.loginForm.uuid = res.uuid;
+        }
+      });
+    },
+    getCookie() {
+      const username = Cookies.get("username");
+      const password = Cookies.get("password");
+      const rememberMe = Cookies.get("rememberMe");
+      this.loginForm = {
+        username: username === undefined ? this.loginForm.username : username,
+        password:
+          password === undefined ? this.loginForm.password : decrypt(password),
+      };
+    },
     checkCapslock(e) {
       const { key } = e;
       this.capsTooltip = key && key.length === 1 && key >= "A" && key <= "Z";
@@ -175,43 +242,75 @@ export default {
       });
     },
     handleLogin() {
-      // this.$store.dispatch('user/login', {
-      //   username: this.loginForm.username,
-      //   password: md5(this.loginForm.password)
-      // })
-      // this.$router.push({ path: '/' })
-
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
-
+          if (this.loginForm.rememberMe) {
+            Cookies.set("username", this.loginForm.username, { expires: 30 });
+            Cookies.set("password", encrypt(this.loginForm.password), {
+              expires: 30,
+            });
+            Cookies.set("rememberMe", this.loginForm.rememberMe, {
+              expires: 30,
+            });
+          } else {
+            Cookies.remove("username");
+            Cookies.remove("password");
+            Cookies.remove("rememberMe");
+          }
+          this.loginForm.tenantCode = "IOT";
           this.$store
-            .dispatch("user/login", {
-              username: this.loginForm.username,
-              password: md5(this.loginForm.password),
-              offline: this.loginForm.offline,
-            })
+            .dispatch("user/login", this.loginForm)
             .then(() => {
-              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.$message({
-                message: "登录成功",
-                type: "success",
-              });
-              setTimeout(() => {
-                this.$router.push({
-                  path: "/",
-                });
-              }, 1000);
-              this.loading = false;
+              this.$router.push({ path: this.redirect || "/" }).catch(() => {});
             })
             .catch(() => {
               this.loading = false;
+              if (this.captchaEnabled) {
+                this.getCode();
+              }
             });
-        } else {
-          return false;
         }
       });
     },
+    // handleLogin() {
+    //   // this.$store.dispatch('user/login', {
+    //   //   username: this.loginForm.username,
+    //   //   password: md5(this.loginForm.password)
+    //   // })
+    //   // this.$router.push({ path: '/' })
+
+    //   this.$refs.loginForm.validate((valid) => {
+    //     if (valid) {
+    //       this.loading = true;
+
+    //       this.$store
+    //         .dispatch("user/login", {
+    //           username: this.loginForm.username,
+    //           password: md5(this.loginForm.password),
+    //           offline: this.loginForm.offline,
+    //         })
+    //         .then(() => {
+    //           // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+    //           this.$message({
+    //             message: "登录成功",
+    //             type: "success",
+    //           });
+    //           setTimeout(() => {
+    //             this.$router.push({
+    //               path: "/",
+    //             });
+    //           }, 1000);
+    //           this.loading = false;
+    //         })
+    //         .catch(() => {
+    //           this.loading = false;
+    //         });
+    //     } else {
+    //       return false;
+    //     }
+    //   });
+    // },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== "redirect") {
@@ -317,6 +416,16 @@ $light_gray: #000;
     /* margin: 0 auto; */
     overflow: hidden;
     /* background-color: #fff; */
+  }
+
+  .login-code {
+    width: 100px;
+    height: 38px;
+    float: right;
+    img {
+      cursor: pointer;
+      vertical-align: middle;
+    }
   }
 
   .login-form-left {

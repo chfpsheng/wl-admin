@@ -65,6 +65,9 @@ export const constantRoutes = [
   }
 ];
 
+// 动态路由，基于用户权限动态去加载
+export const dynamicRoutes = [];
+
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles

@@ -106,28 +106,28 @@
       @sizeChange="sizeChange"
       @currentChange="currentChange"
     />
-    <SensitiveInfo
+    <!-- <SensitiveInfo
       v-if="sensitiveInfoVisible"
       v-model="sensitiveInfoVisible"
       :sensitiveInfoInit="sensitiveInfoInit"
       @updateList="sensitiveInfoUpdateList"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
 import baseDataMixin from "@/mixins/baseData";
 import { randomPassword, randomBetweenNumber } from "@/utils/tools";
-import SensitiveInfo from "./sensitive-info.vue";
+// import SensitiveInfo from "./sensitive-info.vue";
 //import SensitiveInfoShow from './sensitive-info-show.vue'
 import SensitiveInfoShow from "@/components/SensitiveInfo/sensitive-info-show.vue";
 export default {
   name: "ServiceManage",
   mixins: [baseDataMixin],
-  components: {
-    SensitiveInfo,
-    SensitiveInfoShow,
-  },
+  // components: {
+  //   SensitiveInfo,
+  //   SensitiveInfoShow,
+  // },
   data() {
     return {
       tableHeight: 500,

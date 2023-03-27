@@ -82,12 +82,23 @@ module.exports = {
     },
     proxy: {
       ...getProxyConfig(), // 自定义本地开发联调转发
+      [process.env.VUE_APP_BASE_API + ""]: {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.210:8888`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true,
+        pathRewrite: {
+          ["^" + process.env.VUE_APP_BASE_API]: ""
+        }
+      },
       "/cloud-*": {
         target: process.env.VUE_APP_BASE_API_PROXY, // 默认转发
         changeOrigin: true
       }
-    },
-    before: require("./mock/mock-server.js")
+    }
+    // before: require("./mock/mock-server.js")
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

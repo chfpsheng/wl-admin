@@ -86,21 +86,15 @@ export default {
         confirmButtonText: "退出",
         cancelButtonText: "取消",
         type: "warning",
-      }).then(() => {
-        this.tim
-          .logout()
-          .then(() => {
-            this.$store.commit("toggleIsLogin");
-            this.$store.commit("stopComputeCurrent");
-            this.$store.commit("reset");
-            this.logout();
-            clearInterval(this.heartbeat);
-          })
-          .catch(() => {
-            this.logout();
-            clearInterval(this.heartbeat);
-          });
-      });
+      })
+        .then(() => {
+          this.logout();
+          clearInterval(this.heartbeat);
+        })
+        .catch(() => {
+          this.logout();
+          clearInterval(this.heartbeat);
+        });
     },
     async logout() {
       await this.$store.dispatch("user/logout");

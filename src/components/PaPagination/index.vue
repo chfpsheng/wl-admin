@@ -22,47 +22,51 @@
 </template>
 <script>
 export default {
-  name: 'ServiceManage',
+  name: "ServiceManage",
   props: {
     total: {
       type: Number,
-      default: 0
+      default: 0,
     },
     currentPage: {
       type: Number,
-      default: 1
+      default: 1,
     },
     pageSize: {
       type: Number,
-      default: 10
+      default: 10,
     },
     selectedTotal: {
       type: Number,
-      default: 0
+      default: 0,
     },
     selectedShow: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      selectedValue: ''
-    }
+      selectedValue: "",
+    };
   },
-  created() {},
+  created() {
+    console.log("created");
+  },
   mounted() {
-    document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳转'
+    document.getElementsByClassName(
+      "el-pagination__jump"
+    )[0].childNodes[0].nodeValue = "跳转";
   },
   methods: {
     handleSizeChange(val) {
-      this.$emit('sizeChange', val)
+      this.$emit("sizeChange", val);
     },
     handleCurrentChange(val) {
-      this.$emit('currentChange', val)
-    }
-  }
-}
+      this.$emit("currentChange", val);
+    },
+  },
+};
 </script>
 <style scoped>
 </style>

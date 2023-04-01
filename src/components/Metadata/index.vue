@@ -1,38 +1,17 @@
 <template>
   <div class="header-box">
-    <div class="item-box left-box">
-      <img
-        data-v-37dfd6fc=""
-        src="static/img/logo-huarun.f732efa8.png"
-        alt=""
-        class="logoImg"
-        width="104px"
-        height="36px"
-      />
-      <span class="header-title"> 物联网云平台 </span>
-    </div>
-    <div class="item-box right-box">
-      <i
-        v-if="duty === '4'"
-        class="icon iconfont"
-        :class="imOnline === 1 ? 'icon-on-line-icon1' : 'icon-off-line-icon1'"
-        style="color: #fff"
-      />
-      <img src="../../../assets/image/touxiang.png" class="user-avatar" />
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ userName }}<i class="el-icon-arrow-down el-icon--right" />
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="onReset">
-            <span style="display: block">账户设置</span>
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="onLogout">
-            <span style="display: block">{{ $t("navbar.logOut") }}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+    <el-tabs v-model="activeName" class="el-tabs">
+      <el-tab-pane label="属性定义" name="property">
+        <news v-show="activeName === 'news'"></news>
+        <span class="recipient" :class="{ exceed: disabled }" @click="handleAdd"
+          >添加</span
+        >
+        <!-- <i  class="el-icon-circle-plus-outline "></i> -->
+      </el-tab-pane>
+      <el-tab-pane label="发送记录" name="record">
+        <record v-if="activeName === 'record'"></record>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -40,9 +19,21 @@
 import { mapState } from "vuex";
 export default {
   name: "PaHeader",
+  props: {
+    dlgVisible: {
+      type: Boolean,
+      default: false,
+    },
+    initData: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   data() {
     return {
-      userName: "",
+      activeName: 1,
       userData: "",
       interval: 60000,
       heartbeat: null,

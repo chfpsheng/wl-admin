@@ -82,11 +82,35 @@ module.exports = {
     },
     proxy: {
       ...getProxyConfig(), // 自定义本地开发联调转发
-      [process.env.VUE_APP_BASE_API + ""]: {
+      "/dev-api/productCategory": {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
-        target: `http://10.60.1.210:8888`, //me
+        target: `http://10.60.1.218:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/metadata": {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.202:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      // "/productCategory": {
+      //   //target: `http://vue.ruoyi.vip/prod-api`,
+      //   // target: `http://10.124.130.129:8888`,
+
+      //   target: `http://10.60.1.218:8180`, //me
+      //   //target: `http://192.168.125.174:8888`,
+      //   changeOrigin: true
+      // },
+      [process.env.VUE_APP_BASE_API + ""]: {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        //target: `http://10.124.130.129:8888`,
+        //target: `http://10.60.1.218:8180`, //me
+        target: `http://10.60.1.218:8888`, //me
         //target: `http://192.168.125.174:8888`,
         changeOrigin: true,
         pathRewrite: {
@@ -98,7 +122,7 @@ module.exports = {
         changeOrigin: true
       }
     }
-    // before: require("./mock/mock-server.js")
+    //before: require("./mock/mock-server.js")
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

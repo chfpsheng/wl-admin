@@ -24,28 +24,28 @@ export default {
   props: {
     value: {
       type: [String, Number, Boolean, Array],
-      default: ""
+      default: "",
     },
     options: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     placeholder: {
       type: String,
-      default: "请选择"
+      default: "请选择",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     clearable: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
-      selectedValue: ""
+      selectedValue: "",
     };
   },
   watch: {
@@ -53,14 +53,14 @@ export default {
       handler(val) {
         this.selectedValue = val;
       },
-      immediate: true
+      immediate: true,
     },
     selectedValue: {
       handler(val) {
         this.$emit("update:value", val);
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   created() {},
   methods: {
@@ -69,8 +69,8 @@ export default {
     },
     clear() {
       this.$emit("clear");
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -59,7 +59,7 @@ export default {
       },
       metaDataObj: {
         id: "",
-        enable: true,
+        enable: false,
         metadataName: "",
         description: "",
         metadata: JSON.stringify({ properties: [], functions: [], events: [] }),

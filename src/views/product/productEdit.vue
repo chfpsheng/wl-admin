@@ -1,7 +1,37 @@
 <template>
-  <el-form :model="modelForm" ref="editForm" :rules="rule" :label-width="100">
+  <el-form :model="modelForm" ref="editForm" :rules="rule" label-width="100">
     <el-row :gutter="20" class="code-row-bg">
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
+        <el-form-item prop="productName" label="产品名称">
+          <el-input
+            v-model="modelForm.productName"
+            clearable
+            style="width: 215px"
+            placeholder="请输入产品名称"
+          />
+        </el-form-item>
+      </el-col>
+      <el-col :span="12" style="border: none">
+        <el-form-item prop="productName" label="产品分类">
+          <el-select
+            v-model="modelForm.productCategoryId"
+            placeholder="请选择"
+            :popper-append-to-body="false"
+          >
+            <el-option :value="selectTree" class="setstyle" disabled>
+              <el-tree
+                :data="productCategoryList"
+                :props="defaultProps"
+                ref="tree"
+                :highlight-current="true"
+                @node-click="handleNodeClick"
+                default-expand-all
+              ></el-tree>
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12" style="border: none; display: none">
         <el-form-item prop="ecsApplicationId" label="应用名称">
           <el-select
             v-model="modelForm.ecsApplicationId"
@@ -21,20 +51,9 @@
           </el-select>
         </el-form-item>
       </el-col>
-
-      <el-col span="12" style="border: none">
-        <el-form-item prop="productName" label="产品名称">
-          <el-input
-            v-model="modelForm.productName"
-            clearable
-            style="width: 215px"
-            placeholder="请输入产品名称"
-          />
-        </el-form-item>
-      </el-col>
     </el-row>
     <el-row :gutter="20" class="code-row-bg">
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="productModel" label="产品型号">
           <el-input
             v-model="modelForm.productModel"
@@ -44,7 +63,7 @@
           />
         </el-form-item>
       </el-col>
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="deviceType" label="设备类型">
           <el-select
             v-model="modelForm.deviceType"
@@ -65,7 +84,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" class="code-row-bg">
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="networkComponentsId" label="网络组件">
           <el-select
             v-model="modelForm.networkComponentsId"
@@ -84,7 +103,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="lineType" label="连接类型">
           <el-select
             v-model="modelForm.lineType"
@@ -105,7 +124,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" class="code-row-bg">
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="networkType" label="网络类型">
           <el-select
             v-model="modelForm.networkType"
@@ -124,7 +143,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col span="12" style="border: none">
+      <el-col :span="12" style="border: none">
         <el-form-item prop="accessMode" label="接入方式">
           <el-select
             v-model="modelForm.accessMode"
@@ -149,7 +168,7 @@
       class="code-row-bg"
       v-if="modelForm.accessMode === '2'"
     >
-      <el-col span="24" style="border: none">
+      <el-col :span="24" style="border: none">
         <el-form-item prop="httpUrl" label="回调地址">
           <el-input
             v-model="modelForm.httpUrl"
@@ -164,7 +183,7 @@
       class="code-row-bg"
       v-if="modelForm.accessMode === '2'"
     >
-      <el-col span="24" style="border: none">
+      <el-col :span="24" style="border: none">
         <el-form-item prop="httpSecret" label="密钥">
           <el-input
             v-model="modelForm.httpSecret"
@@ -179,7 +198,7 @@
       class="code-row-bg"
       v-if="modelForm.accessMode === '1'"
     >
-      <el-col span="24" style="border: none">
+      <el-col :span="24" style="border: none">
         <el-form-item label="说明">
           <div style="color: #ff0000">
             <div>
@@ -202,7 +221,7 @@
     <!--      </el-col>-->
     <!--    </el-row>-->
     <el-row :gutter="20" class="code-row-bg">
-      <el-col span="24" style="border: none">
+      <el-col :span="24" style="border: none">
         <el-form-item prop="remark" label="备注">
           <el-input
             v-model="modelForm.remark"
@@ -222,6 +241,7 @@ import { getProductDetail, updateProduct, addProduct } from "@/api/product.js";
 import { queryApplicationList } from "@/api/application.js";
 import { getValueSet } from "@/api/valueSet.js";
 import { queryCommPortList } from "@/api/port.js";
+import { getProductTypeList } from "@/api/productType.js";
 
 export default {
   props: {
@@ -234,12 +254,52 @@ export default {
   },
   data() {
     return {
+      defaultProps: {
+        children: "children",
+        label: "label",
+      },
+      selectTree: [],
       isEdit: false, //是否编辑
       applicationList: [], //应用名称
       deviceTypeList: [], //设备类型
       networkTypeList: [], //网络类型
       accessModeList: [],
       networkComponentsList: [], //网络组件
+      flattedProductTypeList: [],
+      productCategoryList: [
+        {
+          id: 1,
+          seq: 1,
+          name: "产品分类1",
+          note: "note",
+        },
+        {
+          id: 2,
+          seq: 2,
+          name: "产品分类2",
+          note: "note",
+        },
+        {
+          id: 3,
+          seq: 2,
+          name: "智慧工业",
+          note: "note",
+          children: [
+            {
+              id: 31,
+              date: "2016-05-01",
+              name: "生活区域",
+              note: "note",
+            },
+            {
+              id: 32,
+              date: "2016-05-01",
+              name: "生产区域",
+              note: "note",
+            },
+          ],
+        },
+      ],
       lineTypeList: [
         {
           name: "直连",
@@ -255,8 +315,9 @@ export default {
         },
       ], //连接类型
       modelForm: {
+        accessMode: "",
         id: this.id,
-        ecsApplicationId: "",
+        ecsApplicationId: 1,
         productName: "",
         productModel: "",
         lineType: "",
@@ -351,15 +412,43 @@ export default {
     };
   },
   mounted() {
+    console.log("33333333333", this.selectTree);
     this.getApplicationList();
     this.getDeviceTypeList();
     this.getNetworkTypeList();
     this.getAccessModeList();
     this.getNetworkComponentsList();
+    this.getProductTypeList();
 
     this.init();
   },
   methods: {
+    getProductTypeList() {
+      console.log("getProductTypeList");
+      getProductTypeList({}).then((res) => {
+        console.log(res);
+        //this.selectTree = this.flatten(res.data);
+      });
+    },
+
+    flatten(arr) {
+      return [].concat(
+        ...arr.map((item) => {
+          if (item.children) {
+            let arr = [].concat(item, ...this.flatten(item.children));
+            delete item.children;
+            return arr;
+          }
+          return [].concat(item);
+        })
+      );
+    },
+    handleNodeClick(data, self, child) {
+      console.log("data", data);
+      this.modelForm.productCategoryId = data.id;
+      // this.labelData = data.label; //展示部分
+      // this.valueData = data.id; //传参---id
+    },
     getAppNames(item) {
       return `${item.applicationName}(${item.applicationCode})`;
     },

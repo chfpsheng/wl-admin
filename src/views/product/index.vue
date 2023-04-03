@@ -5,7 +5,7 @@
       ref="searchForm"
       slot="search-bar"
       label-position="left"
-      :label-width="72"
+      label-width="72"
       class="ivu-form-no-margin-bottom"
       inline
     >
@@ -59,7 +59,7 @@
             </el-form-item>
           </el-col>
           <el-col span="6" class="handle-bar-one">
-            <el-form-item prop="button" :label-width="0">
+            <el-form-item prop="button" label-width="0">
               <div>
                 <!-- <el-button optType="search" @click="search">搜索</el-button> -->
                 <el-button type="primary" icon="el-icon-search" @click="search"
@@ -179,7 +179,7 @@
       </el-table-column>
       <el-table-column prop="accessMode" label="接入方式" width="180">
         <template slot-scope="scope">
-          <div>{{ getAccessModeName(scope.row.networkType) }}</div>
+          <div>{{ getAccessModeName(scope.row.accessMode) }}</div>
         </template>
       </el-table-column>
       <el-table-column prop="parameters" label="参数" width="180">
@@ -196,14 +196,14 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <pa-pagination
-        :current-page="listQuery.pageNum"
-        :page-size="listQuery.pageSize"
-        :total="pagination.total"
-        @sizeChange="sizeChange"
-        @currentChange="currentChange"
-      />
     </el-table>
+    <pa-pagination
+      :current-page="listQuery.pageNum"
+      :page-size="listQuery.pageSize"
+      :total="pagination.total"
+      @sizeChange="sizeChange"
+      @currentChange="currentChange"
+    />
   </div>
 </template>m 
 <script>
@@ -235,7 +235,7 @@ export default {
       },
       listQuery: {
         pageNum: 1,
-        pageSize: 50,
+        pageSize: 10,
         condition: {},
       },
       pagination: {
@@ -247,7 +247,7 @@ export default {
       tableData: [],
       // pageTableConfig: {
       //   autoFirst: true,
-      //   loadDataFn: this.loadData,
+      //   getListFn: this.getList,
       //   columnsFn: this.generateColumns,
       //   onSelectionChange: this.onSelectionChange,
       // },
@@ -261,8 +261,15 @@ export default {
     console.log(111);
     this.getNetworkTypeName();
     console.log(222);
-    this.loadData();
+    this.getList();
+    this.$nextTick(() => {
+      this.tableHeight = this.$computeHeight(288);
+    });
+    window.onresize = () => {
+      this.tableHeight = this.$computeHeight(288);
+    };
   },
+
   methods: {
     // 分页器方法
     sizeChange(val) {
@@ -275,7 +282,7 @@ export default {
       }).then(() => {
         deleteProduct(row.id).then((res) => {
           this.$message.success("删除成功！");
-          this.loadData();
+          this.getList();
         });
       });
     },
@@ -285,15 +292,14 @@ export default {
     },
     // responseProcess为InnerPageTable提供的回调函数，会自动处理返回的数据
     // param会自动将searchForm中的参数注入
-    loadData() {
-      console.log("loadData");
+    getList() {
       this.listQuery.condition = this.searchForm;
-      console.log("loadData", this.listQuery);
+      this.listQuery.pageSize = this.pagination.pageSize;
       // this.listQuery = Object.assign(params, queryObj);
       queryProductListPage(this.listQuery).then((res) => {
         console.log(2222222222, res);
         this.tableData = res.data.records;
-        // = res.data.total
+        this.pagination.total = res.data.total;
       });
     },
     onQueryCache() {
@@ -585,20 +591,14 @@ export default {
         },
         (data) => {
           if (data) {
-            this.loadData();
+            this.getList();
           }
         }
       );
     },
-    onEdit() {
-      if (this.selectedIdList.length !== 1) {
-        this.$Message.warning({
-          content: "请选择一条数据",
-          duration: 3,
-        });
-        return;
-      }
-      const id = this.selectedIdList[0];
+    editItem(row) {
+      const id = row.id;
+      console.log(12345, id);
       new this.$pageModal(
         productEdit,
         {
@@ -608,7 +608,7 @@ export default {
         },
         (data) => {
           if (data) {
-            this.loadData();
+            this.getList();
           }
         }
       );
@@ -683,7 +683,7 @@ export default {
     //设备类型
     getDeviceTypeList() {
       getValueSet({ vsCode: "DEVICE_TYPE" }).then((res) => {
-        this.deviceTypeList = res.data;
+        this.deviceTypeList = res["DEVICE_TYPE"];
       });
     },
     //根据key获取设备类型名称
@@ -700,13 +700,15 @@ export default {
     //网络类型
     getNetworkTypeList() {
       getValueSet({ vsCode: "NETWORK_TYPE" }).then((res) => {
-        this.networkTypeList = res.data;
+        this.networkTypeList = res["NETWORK_TYPE"];
+        console.log(456, this.networkTypeList);
+        s;
       });
     },
     //获取接入方式
     getAccessModeList() {
       getValueSet({ vsCode: "ACCESS_MODE" }).then((res) => {
-        this.accessModeList = res.data;
+        this.accessModeList = res["ACCESS_MODE"];
       });
     },
     //根据key获取接入方式名称
@@ -722,11 +724,12 @@ export default {
     },
     //根据key获取接入方式名称
     getNetworkTypeName(key) {
+      console.log(123, key, this.networkTypeList);
       const networkType = this.networkTypeList.find(
-        (item) => item.vsiKey === key
+        (item) => item.value === key
       );
       if (networkType) {
-        return networkType.vsiValue;
+        return networkType.name;
       } else {
         return "";
       }

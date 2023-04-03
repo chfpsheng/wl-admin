@@ -51,7 +51,7 @@ export default {
     };
   },
   created() {
-    console.log("created");
+    console.log("el-pagination created");
   },
   mounted() {
     document.getElementsByClassName(

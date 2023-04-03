@@ -10,7 +10,7 @@ export function queryCommPortListPage(data) {
 
 export function queryCommPortList(data) {
   return request({
-    url: `/port/findCommPortList`,
+    url: `/productCategory/findCommPortList`,
     method: "post",
     data
   });

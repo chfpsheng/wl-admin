@@ -16,11 +16,10 @@ export function queryProductList(data) {
   });
 }
 
-export function getProductDetail(data) {
+export function getProductDetail(id) {
   return request({
     url: `/product/getProductById?id=${id}`,
-    method: "get",
-    data
+    method: "get"
   });
 }
 

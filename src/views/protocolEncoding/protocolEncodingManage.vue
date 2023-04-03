@@ -155,7 +155,7 @@
 
 <script>
 import { getDiscountList, startServer, stopServer } from "@/api/commControl.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 import baseDataMixin from "@/mixins/baseData";
 import TablePagination from "@/components/Table/table-pagination.vue";
 import Template from "../template-manage/delivery-template/template.vue";

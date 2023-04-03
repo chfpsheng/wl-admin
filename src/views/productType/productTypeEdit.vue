@@ -15,7 +15,7 @@
         label-position="left"
         class="pa-ruleForm"
       >
-        <el-form-item label="名称">
+        <el-form-item label="名称" prop="sortName">
           <el-input v-model="productTypeObj.sortName" placeholder="名称" />
         </el-form-item>
         <el-form-item label="序号">
@@ -28,7 +28,7 @@
             class="pa-input form-input form--number-input"
           />
         </el-form-item>
-        <el-form-item label="物模型">
+        <el-form-item label="物模型" prop="metadataId">
           <pa-select
             :value.sync="productTypeObj.metadataId"
             :options="metadataList"

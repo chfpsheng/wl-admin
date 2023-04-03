@@ -147,7 +147,7 @@ import {
   updateForeignApplication,
   addForeignApplication,
 } from "@/api/foreignApplication.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 import { queryCommPortList } from "@/api/port.js";
 import { queryCommPatternList } from "@/api/pattern.js";
 import AppOC from "./foreignApplicationOc.vue";

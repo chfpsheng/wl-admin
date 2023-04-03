@@ -62,7 +62,7 @@ import {
   updateProtocolEncoding,
   addProtocolEncoding,
 } from "@/api/protocolEncoding.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 export default {
   components: {},
   props: {

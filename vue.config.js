@@ -86,11 +86,43 @@ module.exports = {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
-        target: `http://10.60.1.218:8101`, //me
+        target: `http://10.60.1.6:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/application": {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.6:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/standardCodeList": {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.6:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/product": {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.6:8101`, //me
         //target: `http://192.168.125.174:8888`,
         changeOrigin: true
       },
       "/dev-api/metadata": {
+        //target: `http://vue.ruoyi.vip/prod-api`,
+        // target: `http://10.124.130.129:8888`,
+
+        target: `http://10.60.1.202:8101`, //me
+        //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/port": {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
@@ -110,7 +142,7 @@ module.exports = {
         //target: `http://vue.ruoyi.vip/prod-api`,
         //target: `http://10.124.130.129:8888`,
         //target: `http://10.60.1.218:8180`, //me
-        target: `http://10.60.1.218:8888`, //me
+        target: `http://10.60.1.6:8888`, //me
         //target: `http://192.168.125.174:8888`,
         changeOrigin: true,
         pathRewrite: {

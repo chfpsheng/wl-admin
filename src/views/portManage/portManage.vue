@@ -204,7 +204,7 @@ import {
 import baseDataMixin from "@/mixins/baseData";
 import TablePagination from "@/components/Table/table-pagination.vue";
 import { queryCommPatternList } from "@/api/pattern.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 import portEdit from "./portEdit.vue";
 import codeBox from "@/components/CodeBox";
 export default {

@@ -197,12 +197,12 @@ import {
   queryForeignApplicationListPage,
 } from "@/api/foreignApplication.js";
 import { queryCommPatternList } from "@/api/pattern.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 import baseDataMixin from "@/mixins/baseData";
 import TablePagination from "@/components/Table/table-pagination.vue";
 import Template from "../template-manage/delivery-template/template.vue";
 import foreignApplicationEdit from "./foreignApplicationEdit.vue";
-import codeBox from "@/components/CodeBox/index.vue";
+import codeBox from "@/components/CodeBox";
 export default {
   mixins: [baseDataMixin],
   components: {

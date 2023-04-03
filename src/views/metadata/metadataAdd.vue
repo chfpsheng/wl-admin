@@ -14,11 +14,11 @@
         label-position="left"
         class="pa-ruleForm"
       >
-        <el-form-item label="名称">
+        <el-form-item label="名称" prop="metadataName">
           <el-input v-model="metaDataObj.metadataName" placeholder="名称" />
         </el-form-item>
 
-        <el-form-item label="状态">
+        <el-form-item label="状态" prop="enable">
           <el-switch v-model="metaDataObj.enable" class="drawer-switch" />
         </el-form-item>
         <el-form-item label="说明">

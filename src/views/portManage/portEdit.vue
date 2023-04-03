@@ -107,7 +107,7 @@
 <script>
 import { getCommPortDetail } from "@/api/port.js";
 import { queryCommPatternList } from "@/api/pattern.js";
-import { getValueSet } from "@/api/common.js";
+import { getValueSet } from "@/api/valueSet.js";
 import { protocolApi } from "@/api/protocol.js";
 
 export default {

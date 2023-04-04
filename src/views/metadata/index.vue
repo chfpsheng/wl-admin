@@ -47,14 +47,14 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <pa-pagination
-        :current-page="listQuery.pageNum"
-        :page-size="listQuery.pageSize"
-        :total="pagination.total"
-        @sizeChange="sizeChange"
-        @currentChange="currentChange"
-      />
     </el-table>
+    <pa-pagination
+      :current-page="listQuery.pageNum"
+      :page-size="listQuery.pageSize"
+      :total="pagination.total"
+      @sizeChange="sizeChange"
+      @currentChange="currentChange"
+    />
 
     <metadata-add
       :visible.sync="visible"

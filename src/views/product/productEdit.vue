@@ -37,7 +37,7 @@
             :treeRenderFun="_renderFun"
             @node-click="_nodeClickFun"
             ref="treeSelect"
-            style="width: 180px"
+            style="width: 280px"
           />
           <el-select
             multiple
@@ -634,3 +634,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+::v-deep .el-popover__reference {
+  width: 150px !important;
+}
+</style>

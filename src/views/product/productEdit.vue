@@ -13,7 +13,7 @@
       </el-col>
       <el-col :span="12" style="border: none">
         <el-form-item prop="productName" label="产品分类">
-          <el-select
+          <!-- <el-select
             v-model="modelForm.productCategoryId"
             placeholder="请选择"
             :popper-append-to-body="false"
@@ -28,26 +28,30 @@
                 default-expand-all
               ></el-tree>
             </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="12" style="border: none; display: none">
-        <el-form-item prop="ecsApplicationId" label="应用名称">
+          </el-select> -->
+          <el-tree-select
+            :styles="styles"
+            v-model="modelForm.productCategoryId"
+            :selectParams="selectParams"
+            :treeParams="treeParams"
+            :treeRenderFun="_renderFun"
+            @node-click="_nodeClickFun"
+            ref="treeSelect"
+            style="width: 180px"
+          />
           <el-select
-            v-model="modelForm.ecsApplicationId"
-            :disabled="isEdit"
-            clearable
-            filterable
-            placeholder="请选择应用名称"
-            transfer
+            multiple
+            v-model="test"
+            placeholder="请选择"
+            @change="_selectChange"
+            style="display: none"
           >
             <el-option
-              v-for="item in applicationList"
+              v-for="item in treeParams.data"
               :key="item.id"
-              :label="item.applicationName"
+              :label="item.name"
               :value="item.id"
-              >{{ getAppNames(item) }}</el-option
-            >
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-col>
@@ -157,7 +161,7 @@
               :key="item.value"
               :label="item.name"
               :value="item.value"
-              >{{ item.value }}</el-option
+              >{{ item.name }}</el-option
             >
           </el-select>
         </el-form-item>
@@ -221,6 +225,26 @@
     <!--      </el-col>-->
     <!--    </el-row>-->
     <el-row :gutter="20" class="code-row-bg">
+      <el-col :span="12" style="border: none">
+        <el-form-item prop="ecsApplicationId" label="应用名称">
+          <el-select
+            v-model="modelForm.ecsApplicationId"
+            :disabled="isEdit"
+            clearable
+            filterable
+            placeholder="请选择应用名称"
+            transfer
+          >
+            <el-option
+              v-for="item in applicationList"
+              :key="item.id"
+              :label="item.applicationName"
+              :value="item.id"
+              >{{ getAppNames(item) }}</el-option
+            >
+          </el-select>
+        </el-form-item>
+      </el-col>
       <el-col :span="24" style="border: none">
         <el-form-item prop="remark" label="备注">
           <el-input
@@ -254,6 +278,33 @@ export default {
   },
   data() {
     return {
+      styles: {
+        width: "300px",
+      },
+      test: "",
+      values: "5",
+      selectParams: {
+        multiple: true,
+        clearable: true,
+        placeholder: "请输入内容",
+      },
+      treeParams: {
+        clickParent: false,
+        filterable: true,
+        "check-strictly": true,
+        "default-expand-all": true,
+        "expand-on-click-node": false,
+        data: [],
+        props: {
+          children: "children",
+          label: "sortName",
+          disabled: "disabled",
+          value: "id",
+        },
+      },
+
+      //TODO:隔离
+
       defaultProps: {
         children: "children",
         label: "label",
@@ -317,7 +368,7 @@ export default {
       modelForm: {
         accessMode: "",
         id: this.id,
-        ecsApplicationId: 1,
+        ecsApplicationId: "",
         productName: "",
         productModel: "",
         lineType: "",
@@ -428,9 +479,29 @@ export default {
       getProductTypeList({}).then((res) => {
         console.log(res);
         //this.selectTree = this.flatten(res.data);
+
+        //todo 模拟数据将模拟数据代替data
+        this.treeParams.data = res.data;
+        this.$refs.treeSelect.treeDataUpdateFun(res.data);
       });
     },
-
+    // 树点击
+    _nodeClickFun(data, node, vm) {
+      this.modelForm.productCategoryId = data.id;
+      console.log("this _nodeClickFun", this.values, data, node);
+    },
+    // 下拉框修改
+    _selectChange(val) {
+      console.log(val, "<-select change");
+    },
+    // 自定义render
+    _renderFun(h, { node, data, store }) {
+      return (
+        <span class="custom-tree-node">
+          <span>{node.label}</span>
+        </span>
+      );
+    },
     flatten(arr) {
       return [].concat(
         ...arr.map((item) => {

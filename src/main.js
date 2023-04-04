@@ -54,6 +54,9 @@ import "./assets/css/animate.css";
 import progressive from "progressive-image/dist/vue";
 import xss from "xss";
 import pageModal from "./components/PageModal";
+import ElTreeSelect from "el-tree-select";
+Vue.use(ElTreeSelect);
+
 //import'progressive-image/dist/index.css'
 // import trtcCalling from './trtc-calling'
 // import TRTCCalling from 'trtc-calling-js'
@@ -74,6 +77,7 @@ Vue.prototype.$pageModal = pageModal;
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
+
 if (process.env.NODE_ENV === "production") {
   const { mockXHR } = require("../mock");
   mockXHR();

@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-export const protocolApi = {
+export const deviceApi = {
   queryDeviceListPage: data => {
     return request({
       url: "/device/findDeviceListPage",
@@ -7,9 +7,9 @@ export const protocolApi = {
       data
     });
   },
-  queryProtocolList: data => {
+  queryDeviceList: data => {
     return request({
-      url: "/protocol/findProtocolList",
+      url: "/device/findDeviceList",
       method: "post",
       data
     });
@@ -20,9 +20,9 @@ export const protocolApi = {
       method: "get"
     });
   },
-  getProtocolProductRef: data => {
+  addDevice: data => {
     return request({
-      url: "/protocol/getProtocolProductRef",
+      url: "/device/addDevice",
       method: "post",
       data
     });
@@ -46,10 +46,10 @@ export const protocolApi = {
       method: "get"
     });
   },
-  deleteDevice: data => {
+  deleteDevice: id => {
     return request({
       url: `/device/deleteDevice?id=${id}`,
-      method: "get"
+      method: "post"
     });
   },
 

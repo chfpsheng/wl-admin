@@ -47,7 +47,7 @@
       :item="item"
       :visible.sync="visible"
       v-if="visible"
-      @refreshTable="getList"
+      @refreshTable="refreshTable"
       @close="closeDialog"
     ></product-type-edit>
     <!-- <el-table
@@ -138,6 +138,10 @@ export default {
     window.onresize = null;
   },
   methods: {
+    refreshTable() {
+      console.log("refreshTable");
+      this.getList();
+    },
     closeDialog() {
       this.visible = false;
     },

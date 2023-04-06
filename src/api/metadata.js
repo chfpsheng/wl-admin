@@ -26,8 +26,7 @@ export function addMetadata(data) {
 
 export function deleteMetadata(id) {
   return request({
-    url: "/metadata/deleteObjectData?id=${id}",
-    method: "post",
-    data: data
+    url: `/metadata/deleteObjectData?id=${id}`,
+    method: "post"
   });
 }

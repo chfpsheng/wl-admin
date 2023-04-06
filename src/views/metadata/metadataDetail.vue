@@ -53,6 +53,7 @@
           v-if="propertyVisible"
           :visible="propertyVisible"
           :initInfo="propertyInfo"
+          :addFlag="addFlag"
           @save-success="saveSuccess"
           @close="propertyVisible = false"
         />
@@ -73,6 +74,7 @@ export default {
   },
   data() {
     return {
+      addFlag: false,
       propertyVisible: false,
       id: "",
       activeName: "property",
@@ -108,6 +110,11 @@ export default {
         this.tableData = this.metadataObj.properties;
       });
     },
+    editItem(row) {
+      this.addFlag = flase;
+      this.propertyVisible = true;
+      this.propertyInfo = row;
+    },
     deleteItem(row) {
       let name = row.name; //properties里面没有id，所以用name比较
       let properties = this.metadataObj.properties;
@@ -137,6 +144,7 @@ export default {
       });
     },
     addItem() {
+      this.addFlag = true;
       this.propertyVisible = true;
       this.propertyInfo = {};
     },

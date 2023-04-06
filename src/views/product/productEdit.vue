@@ -636,6 +636,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep .el-popover__reference {
-  width: 150px !important;
+  width: 210px !important;
 }
 </style>

@@ -59,6 +59,7 @@
     <metadata-add
       :visible.sync="visible"
       v-if="visible"
+      :addFlag="addFlag"
       @close="closeDialog"
       @gotoDetail="gotoDetail"
     ></metadata-add>

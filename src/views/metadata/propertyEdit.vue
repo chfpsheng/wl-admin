@@ -56,6 +56,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    addFlag: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -119,7 +123,12 @@ export default {
     },
     submitForm() {
       console.log(this.ruleForm);
+      if (this.addFlag) {
+        this.ruleForm.decodeMatchKey = this.ruleForm.standardOutKey;
+      }
+
       this.$emit("save-success", this.ruleForm);
+
       this.$emit("close");
     },
     cancleAdd() {

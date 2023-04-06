@@ -6,7 +6,7 @@ export const getRouters = () => {
   console.log(12222, store);
   return request({
     // url: `/account/getRouter?tenantCode=${"paltform"}&appCode=IOT`,
-    url: "/account/getRouter?tenantCode=platform&appCode=IOT",
+    url: "/qauth/account/getRouter?tenantCode=platform&appCode=IOT",
     method: "get"
   });
 };

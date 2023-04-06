@@ -1,22 +1,23 @@
 <template>
   <div class="json-input">
-    <!-- <Row :gutter="20" class="code-row-bg">
-      <Col span="4">
-      key名称
-      </Col>
-      <Col span="4">
-      key值
-      </Col>
-    </Row>
-    <Row :gutter="20" class="code-row-bg" v-for="(item,index) in jsonDataList" :key="index">
-      <Col span="4">
-      <Input v-model="item.keyName" :precision="0" style="width:100%;" />
-      </Col>
-      <Col span="4">
-      <Input v-model="item.keyValue" :precision="0" style="width:100%;" />
-      </Col>
-    </Row> -->
-    <Table :columns="columns1" :data="jsonDataList"></Table>
+    <el-row :gutter="20" class="code-row-bg">
+      <el-col span="4"> key名称 </el-col>
+      <el-col span="4"> key值 </el-col>
+    </el-row>
+    <el-row
+      :gutter="20"
+      class="code-row-bg"
+      v-for="(item, index) in jsonDataList"
+      :key="index"
+    >
+      <el-col span="4">
+        <el-input v-model="item.keyName" :precision="0" style="width: 100%" />
+      </el-col>
+      <el-col span="4">
+        <el-input v-model="item.keyValue" :precision="0" style="width: 100%" />
+      </el-col>
+    </el-row>
+    <!-- <el-table :columns="columns1" :data="jsonDataList"></el-table> -->
   </div>
 </template>
 
@@ -127,9 +128,11 @@ export default {
       ]);
     },
     onDelete(index) {
+      console.log("addRow");
       this.jsonDataList.splice(index, 1);
     },
     addRow() {
+      console.log("addRow");
       this.jsonDataList.push({
         keyName: "",
         keyValue: "",

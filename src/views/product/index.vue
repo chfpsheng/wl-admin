@@ -11,7 +11,7 @@
     >
       <template>
         <el-row :gutter="45">
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item prop="ecsApplicationId" label="应用名称">
               <el-select
                 v-model="searchForm.ecsApplicationId"
@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item prop="productName" label="产品名称">
               <el-input
                 type="text"
@@ -40,7 +40,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item prop="deviceType" label="设备类型">
               <el-select
                 v-model="searchForm.deviceType"
@@ -58,7 +58,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6" class="handle-bar-one">
+          <el-col :span="6" class="handle-bar-one">
             <el-form-item prop="button" label-width="0">
               <div>
                 <!-- <el-button optType="search" @click="search">搜索</el-button> -->
@@ -77,7 +77,7 @@
           </el-col>
         </el-row>
         <el-row :gutter="45" v-if="showMore">
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item prop="networkType" label="网络类型">
               <el-select
                 v-model="searchForm.networkType"
@@ -95,7 +95,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6" style="border: none">
+          <el-col :span="6" style="border: none">
             <el-form-item prop="accessMode" label="接入方式">
               <el-select
                 v-model="searchForm.accessMode"
@@ -724,7 +724,6 @@ export default {
     },
     //根据key获取接入方式名称
     getNetworkTypeName(key) {
-      console.log(123, key, this.networkTypeList);
       const networkType = this.networkTypeList.find(
         (item) => item.value === key
       );

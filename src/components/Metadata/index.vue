@@ -1,149 +1,159 @@
 <template>
-  <div class="header-box">
+  <div>
+    <div class="name">{{ detailObj.metadataName }}</div>
+    <div class="status">
+      <el-switch v-model="detailObj.enable" class="drawer-switch" />
+    </div>
     <el-tabs v-model="activeName" class="el-tabs">
       <el-tab-pane label="属性定义" name="property">
-        <news v-show="activeName === 'news'"></news>
-        <span class="recipient" :class="{ exceed: disabled }" @click="handleAdd"
-          >添加</span
+        <div class="filter-container">
+          <el-button
+            class="filter-item"
+            type="primary"
+            icon="el-icon-plus"
+            @click="addItem()"
+          >
+            新增
+          </el-button>
+        </div>
+        <el-table
+          :data="tableData"
+          style="width: 100%; margin-bottom: 20px"
+          row-key="id"
+          class="pa-table"
         >
-        <!-- <i  class="el-icon-circle-plus-outline "></i> -->
+          <el-table-column
+            prop="standardOutKey"
+            label="标志"
+            sortable
+            width="380"
+          >
+          </el-table-column>
+          <el-table-column prop="name" label="名称"> </el-table-column>
+
+          <el-table-column prop="description" label="说明" width="380">
+          </el-table-column>
+          <el-table-column prop="valueType.type" label="数据类型" width="380">
+          </el-table-column>
+          <el-table-column label="操作" min-width="150px">
+            <template slot-scope="{ row }">
+              <el-tooltip content="编辑" placement="top" effect="light">
+                <i class="el-icon-edit mouse-pointer" @click="editItem(row)" />
+              </el-tooltip>
+              <el-tooltip content="删除" placement="top" effect="light">
+                <i
+                  class="el-icon-delete mouse-pointer"
+                  @click="deleteItem(row)"
+                />
+              </el-tooltip>
+            </template>
+          </el-table-column>
+        </el-table>
+        <property-edit
+          v-if="propertyVisible"
+          :visible="propertyVisible"
+          :initInfo="propertyInfo"
+          @save-success="saveSuccess"
+          @close="propertyVisible = false"
+        />
       </el-tab-pane>
-      <el-tab-pane label="发送记录" name="record">
-        <record v-if="activeName === 'record'"></record>
-      </el-tab-pane>
+      <el-tab-pane label="功能" name="functions"> </el-tab-pane>
+      <el-tab-pane label="事件" name="events"> </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { findMetadataPageList, addMetadata } from "@/api/metadata.js";
+import propertyEdit from "./propertyEdit.vue";
 export default {
-  name: "PaHeader",
-  props: {
-    dlgVisible: {
-      type: Boolean,
-      default: false,
-    },
-    initData: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
+  name: "metadataAdd",
+  components: {
+    propertyEdit,
   },
   data() {
     return {
-      activeName: 1,
-      userData: "",
-      interval: 60000,
-      heartbeat: null,
+      propertyVisible: false,
+      id: "",
+      activeName: "property",
+      tableData: [],
+      detailObj: {},
+      metadataObj: {
+        properties: [],
+        functions: [],
+        events: [],
+      },
+      propertyInfo: {},
     };
   },
-  computed: {
-    ...mapState({
-      imOnline: (state) => parseInt(state.user.imOnline, 10),
-      duty: (state) => state.user.duty,
-      imUserId: (state) => state.user.imUserId,
-    }),
-  },
-  watch: {},
-  mounted() {
-    this.userName = this.$local.get("userData")
-      ? this.$local.get("userData").displayName
-      : "";
-    this.userData = this.$local.get("userData");
-  },
-  destroyed() {
-    clearInterval(this.heartbeat);
+  created() {
+    this.id = this.$route.query.id;
+    this.getList(this.id);
   },
   methods: {
-    async heartbeatFn() {
-      const result = await this.$requestPost(
-        `/cloud-im/user/online?imUserId=${this.userData.imUserId}`,
-        {}
-      );
-    },
-    toggleSideBar() {
-      this.$store.dispatch("app/toggleSideBar");
-    },
-    // 退出登录
-    onLogout() {
-      this.$confirm("确认退出当前账号吗？", "安全退出", {
-        confirmButtonText: "退出",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.logout();
-          clearInterval(this.heartbeat);
-        })
-        .catch(() => {
-          this.logout();
-          clearInterval(this.heartbeat);
-        });
-    },
-    async logout() {
-      await this.$store.dispatch("user/logout");
-      this.$message({
-        message: "退出成功",
-        type: "success",
+    getList(id) {
+      findMetadataPageList({ condition: { id: id } }).then((res) => {
+        console.log(res);
+        this.detailObj = res.data[0];
+        console.log(this.detailObj.metadata);
+        if (this.detailObj.metadata) {
+          this.metadataObj = JSON.parse(this.detailObj.metadata);
+        } else {
+          this.metadataObj = {
+            properties: [],
+            functions: [],
+            events: [],
+          };
+        }
+        this.tableData = this.metadataObj.properties;
       });
-      setTimeout(() => {
-        this.$router.push(`/login`);
-      }, 1000);
     },
-    // 账户设置
-    onReset() {
-      this.$router.push("/mine/reset");
+    deleteItem(row) {
+      let name = row.name; //properties里面没有id，所以用name比较
+      let properties = this.metadataObj.properties;
+
+      let delIndex = 0;
+      properties.forEach((item, index) => {
+        if (item.name == name) {
+          delIndex = index;
+        }
+      });
+
+      this.metadataObj.properties.splice(delIndex, 1);
+      this.detailObj.metadata = JSON.stringify(this.metadataObj);
+      addMetadata(this.detailObj).then((res) => {
+        //刷新详情页
+        this.getList(this.id);
+      });
+    },
+    saveSuccess(propertyObj) {
+      console.log("propertyObj", propertyObj, this.metadataObj);
+      this.metadataObj.properties.push(propertyObj);
+      this.detailObj.metadata = JSON.stringify(this.metadataObj);
+      console.log("this.detailObj", this.detailObj);
+      addMetadata(this.detailObj).then((res) => {
+        //刷新详情页
+        this.getList(this.id);
+      });
+    },
+    addItem() {
+      this.propertyVisible = true;
+      this.propertyInfo = {};
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.pa-logo {
-  color: #fff !important;
+.pa-ruleForm {
+  padding-left: 40px;
+  padding-right: 40px;
 }
-.header-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.form-input {
   width: 100%;
-  height: 48px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2000;
-  padding: 0 16px;
-  background: url("../../../assets/image/bg2.png") 0 0 / cover no-repeat;
 }
-.item-box {
-  display: flex;
-  align-items: center;
-}
-.header-title {
-  font-size: 18px;
-  color: #fff;
-  font-weight: bold;
-}
-.user-avatar {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-}
-.el-dropdown {
-  font-size: 14px;
-  color: #fff;
-}
-.el-icon--right {
-  margin-left: 8px;
-}
-.el-dropdown-link {
-  cursor: pointer;
-}
-
-.icon-off-line-icon,
-.icon-on-line-icon {
-  color: #fff;
+.name {
+  font-size: 32px;
+  font-weight: 600;
 }
 </style>

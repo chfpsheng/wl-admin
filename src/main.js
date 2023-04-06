@@ -54,6 +54,7 @@ import "./assets/css/animate.css";
 import progressive from "progressive-image/dist/vue";
 import xss from "xss";
 import pageModal from "./components/PageModal";
+import sidelipPage from "./components/SidelipPage";
 import ElTreeSelect from "el-tree-select";
 Vue.use(ElTreeSelect);
 
@@ -69,6 +70,7 @@ Vue.prototype.downloadExcel = downloadExcel;
 Vue.prototype.$dayjs = dayjs;
 Vue.prototype.$xss = xss;
 Vue.prototype.$pageModal = pageModal;
+Vue.prototype.$sidelipPage = sidelipPage;
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

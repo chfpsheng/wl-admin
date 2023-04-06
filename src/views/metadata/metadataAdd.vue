@@ -98,6 +98,7 @@ export default {
     },
     submitData() {
       console.log("add", this.metaDataObj);
+
       addMetadata(this.metaDataObj)
         .then((res) => {
           this.$message({

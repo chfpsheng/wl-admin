@@ -17,7 +17,7 @@ export function login(username, password, code, uuid) {
   console.log("aesString", aesString);
   const postData = { ciphertext: aesString };
   return request({
-    url: "/account/login",
+    url: "/qauth/account/login",
     method: "post",
     headers: {
       isToken: false
@@ -37,7 +37,7 @@ export function login(username, password, code, uuid) {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    url: "/account/getLoginUser",
+    url: "/qauth/account/getLoginUser",
     method: "get"
   });
 }
@@ -68,7 +68,7 @@ export function changePassWord(params) {
 // 获取验证码
 export function getCodeImg() {
   return request({
-    url: "/captchaImage",
+    url: "/qauth/captchaImage",
     headers: {
       isToken: false
     },

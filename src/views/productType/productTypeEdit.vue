@@ -180,7 +180,7 @@ export default {
               type: "success",
             });
             //   this.dialogVisible = false;
-
+            this.$emit("close");
             this.productTypeObj = {
               id: "",
               name: "",
@@ -191,9 +191,11 @@ export default {
               parentName: "",
               sortLevel: "",
             };
+            this.$emit("refreshTable"); //发送信息刷新列表
           })
           .catch((err) => {});
       } else {
+        delete obj.id;
         addType(obj)
           .then((res) => {
             this.$message({
@@ -201,7 +203,6 @@ export default {
               type: "success",
             });
             //   this.dialogVisible = false;
-            this.$emit("refreshTable"); //发送信息刷新列表
             this.productTypeObj = {
               id: "",
               name: "",
@@ -212,6 +213,7 @@ export default {
               parentName: "",
               sortLevel: "",
             };
+            this.$emit("refreshTable"); //发送信息刷新列表
           })
           .catch((err) => {});
       }

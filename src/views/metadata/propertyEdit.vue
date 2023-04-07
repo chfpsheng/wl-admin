@@ -24,7 +24,7 @@
           </el-form-item>
           <el-form-item label="名称" prop="name">
             <el-input
-              :disabled="ruleForm.name"
+              :disabled="!addFlag"
               v-model="ruleForm.name"
               class="pa-input form-input"
             />

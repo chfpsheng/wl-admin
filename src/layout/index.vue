@@ -67,7 +67,7 @@ export default {
     const userData = this.$local.get("userData");
     // 线上运营管家才有im账号，需要登录
     if (userData.duty === "4") {
-      this.login();
+      //this.login();
     }
   },
   methods: {

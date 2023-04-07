@@ -115,6 +115,16 @@
         />
       </el-tab-pane>
       <el-tab-pane label="事件" name="events">
+        <div class="filter-container">
+          <el-button
+            class="filter-item"
+            type="primary"
+            icon="el-icon-plus"
+            @click="addItemEvent()"
+          >
+            新增
+          </el-button>
+        </div>
         <el-table
           :data="tableDataEvent"
           style="width: 100%; margin-bottom: 20px"
@@ -219,6 +229,7 @@ export default {
         }
         this.tableData = this.metadataObj.properties;
         this.tableDataFun = this.metadataObj.functions;
+        this.tableDataEvent = this.metadataObj.events;
       });
     },
     editItemFun(row) {
@@ -313,6 +324,28 @@ export default {
         this.getList(this.id);
       });
     },
+    saveSuccessEvent(eventObj, addFlag) {
+      console.log("saveSuccessEvent", eventObj);
+      if (addFlag) {
+        this.metadataObj.events.push(eventObj);
+      } else {
+        this.metadataObj.events = this.metadataObj.events.map((item) => {
+          if (item.name === eventObj.name) {
+            return eventObj;
+          } else {
+            return item;
+          }
+        });
+      }
+      //否则需要通过名字去查找更新的是哪一条
+
+      this.detailObj.metadata = JSON.stringify(this.metadataObj);
+      console.log("this.detailObj", this.detailObj);
+      addMetadata(this.detailObj).then((res) => {
+        //刷新详情页
+        this.getList(this.id);
+      });
+    },
     handleClick(tab, event) {
       this.activeName = tab.name;
     },
@@ -325,6 +358,11 @@ export default {
       this.addFlag = true;
       this.funVisible = true;
       this.funInfo = {};
+    },
+    addItemEvent() {
+      this.addFlag = true;
+      this.eventVisible = true;
+      this.eventInfo = {};
     },
   },
 };

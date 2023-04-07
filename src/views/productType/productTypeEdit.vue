@@ -192,6 +192,7 @@ export default {
               sortLevel: "",
             };
             this.$emit("refreshTable"); //发送信息刷新列表
+            this.$emit("close");
           })
           .catch((err) => {});
       } else {
@@ -214,12 +215,12 @@ export default {
               sortLevel: "",
             };
             this.$emit("refreshTable"); //发送信息刷新列表
+            this.$emit("close");
           })
           .catch((err) => {});
       }
 
-      this.$emit("refreshTable"); //发送信息刷新列表
-      this.$emit("close");
+      // this.$emit("refreshTable"); //发送信息刷新列表
     },
   },
 };

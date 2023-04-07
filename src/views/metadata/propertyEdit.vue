@@ -23,7 +23,11 @@
             />
           </el-form-item>
           <el-form-item label="名称" prop="name">
-            <el-input v-model="ruleForm.name" class="pa-input form-input" />
+            <el-input
+              :disabled="ruleForm.name"
+              v-model="ruleForm.name"
+              class="pa-input form-input"
+            />
           </el-form-item>
           <el-form-item label="数据类型" prop="name">
             <pa-select
@@ -116,7 +120,11 @@ export default {
       rules: {},
     };
   },
-  mounted() {},
+  mounted() {
+    if (!this.addFlag) {
+      this.ruleForm = this.initInfo;
+    }
+  },
   methods: {
     close() {
       this.$emit("close");
@@ -127,7 +135,7 @@ export default {
         this.ruleForm.decodeMatchKey = this.ruleForm.standardOutKey;
       }
 
-      this.$emit("save-success", this.ruleForm);
+      this.$emit("save-success", this.ruleForm, this.addFlag);
 
       this.$emit("close");
     },

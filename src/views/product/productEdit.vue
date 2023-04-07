@@ -44,7 +44,7 @@
             v-model="test"
             placeholder="请选择"
             @change="_selectChange"
-            style="display: none"
+            style="display: block"
           >
             <el-option
               v-for="item in treeParams.data"

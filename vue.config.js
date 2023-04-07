@@ -86,7 +86,7 @@ module.exports = {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
-        target: `http://10.60.1.6:8101`, //me
+        target: `http://10.60.1.202:8101`, //me
         //target: `http://192.168.125.174:8888`,
         changeOrigin: true
       },
@@ -118,7 +118,7 @@ module.exports = {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
-        target: `http://10.60.1.202:8101`, //me
+        target: `http://10.60.1.6:8101`, //me
         //target: `http://192.168.125.174:8888`,
         changeOrigin: true
       },
@@ -126,8 +126,28 @@ module.exports = {
         //target: `http://vue.ruoyi.vip/prod-api`,
         // target: `http://10.124.130.129:8888`,
 
-        target: `http://10.60.1.202:8101`, //me
+        target: `http://10.60.1.6:8101`, //me
         //target: `http://192.168.125.174:8888`,
+        changeOrigin: true
+      },
+      "/dev-api/commonBase": {
+        target: `http://10.60.1.6:8101`, //me
+        changeOrigin: true
+      },
+      "/dev-api/device": {
+        target: `http://10.60.1.6:8101`, //me
+        changeOrigin: true
+      },
+      "/dev-api/dataModel": {
+        target: `http://10.60.1.6:8101`, //me
+        changeOrigin: true
+      },
+      "/dev-api/protocol": {
+        target: `http://10.60.1.6:8101`, //me
+        changeOrigin: true
+      },
+      "/dev-api/tenant": {
+        target: `http://10.60.1.6:8101`, //me
         changeOrigin: true
       },
       // "/productCategory": {
